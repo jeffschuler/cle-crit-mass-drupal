@@ -1,0 +1,17 @@
+name = Geofile Views
+description = Geofile is a module who provides formatters for file field containing geo informations such as .kml and .gpx.
+core = 7.x
+dependencies[] = geophp
+dependencies[] = openlayers
+dependencies[] = views
+package = Fields
+files[] = geofile_views.module
+files[] = views/geofile_views.views.inc
+files[] = views/geofile_views_plugin_style_map.inc
+
+; Information added by drupal.org packaging script on 2012-07-04
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "geofile"
+datestamp = "1341361234"
+

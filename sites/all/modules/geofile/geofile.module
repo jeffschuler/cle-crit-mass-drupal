@@ -1,0 +1,30 @@
+<?php
+
+require_once('geofile.formatters.inc');
+require_once('geofile.openlayers.inc');
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function geofile_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'openlayers' && !empty($plugin)) {
+    return 'plugins/' . $plugin;
+  }
+}
+
+/**
+ * Implements hook_ctools_plugin_api().
+ */
+function geofile_ctools_plugin_api($module, $api) {
+  if ($module == "openlayers") {
+    switch ($api) {
+      case 'openlayers_layers':
+        return array('version' => 1);
+      case 'openlayers_maps':
+        return array('version' => 1);
+    }
+  } else {
+    return array('version' => 1);
+  }
+}
+
