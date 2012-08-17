@@ -1,0 +1,25 @@
+# Ignore configuration files that may contain sensitive information.
+sites/*/settings*.php
+
+# Ignore paths that contain user-generated content.
+sites/*/files
+sites/*/private
+
+# Drush and Boost
+backup/*
+cache/*
+
+# Other version control metadata
+CVS
+.svn
+
+# Eclipse IDE
+.buildpath
+.project
+.settings
+
+# Netbeans IDE
+nbproject
+
+# Mac-specific resource files
+.DS_Store
