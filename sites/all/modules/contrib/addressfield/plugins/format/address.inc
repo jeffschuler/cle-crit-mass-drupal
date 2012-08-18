@@ -22,6 +22,9 @@ function addressfield_format_address_generate(&$format, $address, $context = arr
   // for international shipping. We extend it with country-specific heuristics
   // below.
 
+  // If country is not set, set it to an empty string.
+  $address['country'] = isset($address['country']) ? $address['country'] : '';
+
   // The street block.
   $format['street_block'] = array(
     '#type' => 'addressfield_container',

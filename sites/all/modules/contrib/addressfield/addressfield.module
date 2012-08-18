@@ -207,12 +207,12 @@ function _addressfield_render_address(&$format, $address) {
         }
       }
 
-      if (isset($child['#options'])) {
+      if (isset($child['#options']) && !empty($address[$key])) {
         // Expand options if necessary.
         $child['#children'] = isset($child['#options'][$address[$key]]) ? check_plain($child['#options'][$address[$key]]) : '';
       }
       else {
-        $child['#children'] = check_plain($address[$key]);
+        $child['#children'] = isset($address[$key]) ? check_plain($address[$key]) : '';
       }
 
       // Skip empty elements.
@@ -536,16 +536,25 @@ function addressfield_standard_widget_refresh($form, $form_state) {
  * Implements hook_field_formatter_info().
  */
 function addressfield_field_formatter_info() {
-  return array(
-    'addressfield_default' => array(
-      'label' => t('Default'),
-      'field types' => array('addressfield'),
-      'settings' => array(
-        'use_widget_handlers' => 1,
-        'format_handlers' => array('address'),
-      ),
+  $data_property_info = addressfield_data_property_info();
+
+  $field_formatter = array();
+  $field_formatter['addressfield_default'] = array(
+    'label' => t('Default'),
+    'field types' => array('addressfield'),
+    'settings' => array(
+      'use_widget_handlers' => 1,
+      'format_handlers' => array('address'),
     ),
   );
+  foreach ($data_property_info as $delta => $item) {
+    $field_formatter[$delta] = array(
+      'label' => t($item['label']),
+      'field types' => array('addressfield'),
+      'settings' => array(),
+    );
+  }
+  return $field_formatter;
 }
 
 /**
@@ -645,6 +654,42 @@ function addressfield_field_formatter_view($entity_type, $entity, $field, $insta
         $element[$delta] = addressfield_generate($address, $handlers, $context);
       }
       break;
+
+    default:
+      if (!empty($settings['use_widget_handlers'])) {
+        $handlers = $instance['widget']['settings']['format_handlers'];
+      }
+      else {
+        $handlers = $settings['format_handlers'];
+      }
+      foreach ($items as $delta => $item) {
+        // Generate the address format.
+        $context = array(
+          'mode' => 'render',
+          'field' => $field,
+          'instance' => $instance,
+          'langcode' => $langcode,
+          'delta' => $delta,
+        );
+        $address = array();
+        $address[$display['type']] = $item[$display['type']];
+        // If we are rendering a state/province, also pass in the country, as
+        // this is required in order to look up the correct state name.
+        if ($display['type'] == 'administrative_area') {
+          $address['country'] = $item['country'];
+        }
+
+        // Render the address.
+        $address_render = addressfield_generate($address, $handlers, $context);
+
+        // Remove the country again, we only needed to generate the correct
+        // state/province, and do not want to inclue it in the output.
+        if ($display['type'] == 'administrative_area') {
+          unset($address_render['country']);
+        }
+
+        $element[$delta] = $address_render;
+      }
   }
 
   return $element;
