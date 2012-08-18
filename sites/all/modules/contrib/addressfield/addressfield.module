@@ -314,7 +314,7 @@ function addressfield_field_info() {
 /**
  * Returns an array of default values for the addressfield form elements.
  */
-function addressfield_default_values($available_countries = NULL) {
+function addressfield_default_values($available_countries = NULL, $optional_country = FALSE) {
   if (!isset($available_countries)) {
     $available_countries = _addressfield_country_options_list();
   }
@@ -327,7 +327,7 @@ function addressfield_default_values($available_countries = NULL) {
   }
 
   return array(
-    'country' => $default_country,
+    'country' => ($optional_country ? '' : $default_country),
     'name_line' => '',
     'first_name' => '',
     'last_name' => '',
@@ -348,9 +348,14 @@ function addressfield_default_values($available_countries = NULL) {
  * Implements hook_field_is_empty().
  */
 function addressfield_field_is_empty($item, $field) {
-  // Every address field must have at least a country value or it is considered
-  // empty, even if it has name information.
-  return empty($item['country']);
+  $empty_field = TRUE;
+  foreach ($item as $field_name => $field_value) {
+    if ($field_name == 'element_key') {
+      continue;
+    }
+    $empty_field &= empty($item[$field_name]);
+  }
+  return $empty_field;
 }
 
 /**
@@ -427,7 +432,8 @@ function addressfield_field_widget_form(&$form, &$form_state, $field, $instance,
     // Use the value from the form_state if available.
     $address = $form_state['addressfield'][$element_key];
   }
-  elseif (!empty($items[$delta]['country'])) {
+  // we have to change the condition but on the field edit form $items is an empty array
+  elseif (count($items) && isset($items[$delta]) && !addressfield_field_is_empty($items[$delta], NULL)) {
     // Else use the saved value for the field.
     $address = $items[$delta];
   }
@@ -438,7 +444,7 @@ function addressfield_field_widget_form(&$form, &$form_state, $field, $instance,
 
   // Merge in default values to provide a value for every expected array key.
   $countries = _addressfield_country_options_list($field, $instance);
-  $address += addressfield_default_values($countries);
+  $address += addressfield_default_values($countries, isset($settings['format_handlers']['address-optional-country']));
 
   // Add the form elements for the standard widget, which includes a country
   // select list at the top that reloads the available address elements when the
@@ -484,6 +490,21 @@ function addressfield_standard_country_validate($element, &$form_state) {
   // Store the present address values in the form state for retrieval by the
   // widget form regardless of where the widget sits in the $form array.
   $form_state['addressfield'][$address['element_key']] = array_diff_key($address, array('element_key' => ''));
+
+  // On the field edit form we check the state of "Make country optional".
+  // If chekced, we always delete the default country on the field edit form.
+  // It is finds the name, the langcode and the delta of the field, and clears the country.
+  if ($form_state['complete form']['#form_id'] == 'field_ui_field_edit_form') {
+    if (!empty($form_state['values']['instance']['widget']['settings']['format_handlers']['address-optional-country'])) {
+      foreach ($form_state['field'] as $field_name => $field) {
+        foreach ($form_state['values'][$field_name] as $langcode => $langvalue) {
+          foreach ($form_state['values'][$field_name][$langcode] as $delta => $value) {
+            $form_state['values'][$field_name][$langcode][$delta]['country'] = '';
+          }
+        }
+      }
+    }
+  }
 }
 
 /**
