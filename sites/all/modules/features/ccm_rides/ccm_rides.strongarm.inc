@@ -13,6 +13,38 @@ function ccm_rides_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'additional_settings__active_tab_ride';
+  $strongarm->value = 'edit-flippy';
+  $export['additional_settings__active_tab_ride'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'ant_pattern_ride';
+  $strongarm->value = '<?
+$date_val = $node->field_ride_date[\'und\'][0][\'value\'];
+$datetime = new DateTime($date_val);
+return $datetime->format(\'Y-m-d\');
+?>';
+  $export['ant_pattern_ride'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'ant_php_ride';
+  $strongarm->value = 1;
+  $export['ant_php_ride'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'ant_ride';
+  $strongarm->value = '1';
+  $export['ant_ride'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'field_bundle_settings_node__ride';
   $strongarm->value = array(
     'view_modes' => array(
@@ -89,6 +121,20 @@ function ccm_rides_strongarm() {
   $strongarm->name = 'node_submitted_ride';
   $strongarm->value = 0;
   $export['node_submitted_ride'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ride_pattern';
+  $strongarm->value = 'ride/[node:title]';
+  $export['pathauto_node_ride_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'save_continue_ride';
+  $strongarm->value = 'Save and add fields';
+  $export['save_continue_ride'] = $strongarm;
 
   return $export;
 }
