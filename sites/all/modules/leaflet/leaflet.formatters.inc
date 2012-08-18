@@ -6,7 +6,7 @@
 function leaflet_field_formatter_info() {
   $formatters = array();
 
-  if (module_exists('geofield')) {  
+  if (module_exists('geofield')) {
     $formatters['geofield_leaflet'] = array(
       'label' => t('Leaflet'),
       'field types' => array('geofield'),
@@ -28,7 +28,7 @@ function leaflet_field_formatter_settings_form($field, $instance, $view_mode, $f
 
   if ($display['type'] == 'geofield_leaflet') {
     $options = array('' => t('-- Select --'));
-    foreach(leaflet_map_get_info() as $key => $map) {
+    foreach (leaflet_map_get_info() as $key => $map) {
       $options[$key] = t($map['label']);
     }
 
@@ -72,7 +72,7 @@ function leaflet_field_formatter_settings_form($field, $instance, $view_mode, $f
       '#type' => 'textfield',
       '#maxlength' => 3,
       '#size' => 3,
-      '#default_value' => $settings['icon']['iconSize']['x'],
+      '#default_value' => isset($settings['icon']['iconSize']['x']) ? $settings['icon']['iconSize']['x'] : '',
       '#element_validate' => array('element_validate_integer_positive'),
     );
     $element['icon']['iconSize']['y'] = array(
@@ -80,7 +80,7 @@ function leaflet_field_formatter_settings_form($field, $instance, $view_mode, $f
       '#type' => 'textfield',
       '#maxlength' => 3,
       '#size' => 3,
-      '#default_value' => $settings['icon']['iconSize']['y'] ,
+      '#default_value' => isset($settings['icon']['iconSize']['y']) ? $settings['icon']['iconSize']['y'] : '',
       '#element_validate' => array('element_validate_integer_positive'),
     );
 
@@ -96,16 +96,16 @@ function leaflet_field_formatter_settings_form($field, $instance, $view_mode, $f
       '#type' => 'textfield',
       '#maxlength' => 3,
       '#size' => 3,
-      '#default_value' => $settings['icon']['iconAnchor']['x'] ,
-      '#element_validate' => array('element_validate_integer_positive'),
+      '#default_value' => isset($settings['icon']['iconAnchor']['x']) ? $settings['icon']['iconAnchor']['x'] : '',
+      '#element_validate' => array('element_validate_number'),
     );
     $element['icon']['iconAnchor']['y'] = array(
       '#title' => t('Y'),
       '#type' => 'textfield',
       '#maxlength' => 3,
       '#size' => 3,
-      '#default_value' => $settings['icon']['iconAnchor']['y'] ,
-      '#element_validate' => array('element_validate_integer_positive'),
+      '#default_value' => isset($settings['icon']['iconAnchor']['y']) ? $settings['icon']['iconAnchor']['y'] : '',
+      '#element_validate' => array('element_validate_number'),
     );
 
     $element['icon']['popupAnchor'] = array(
@@ -120,16 +120,16 @@ function leaflet_field_formatter_settings_form($field, $instance, $view_mode, $f
       '#type' => 'textfield',
       '#maxlength' => 3,
       '#size' => 3,
-      '#default_value' => $settings['icon']['popupAnchor']['x'] ,
-      '#element_validate' => array('element_validate_integer_positive'),
+      '#default_value' => isset($settings['icon']['popupAnchor']['x']) ? $settings['icon']['popupAnchor']['x'] : '',
+      '#element_validate' => array('element_validate_number'),
     );
     $element['icon']['popupAnchor']['y'] = array(
       '#title' => t('Y'),
       '#type' => 'textfield',
       '#maxlength' => 3,
       '#size' => 3,
-      '#default_value' => $settings['icon']['popupAnchor']['y'] ,
-      '#element_validate' => array('element_validate_integer_positive'),
+      '#default_value' => isset($settings['icon']['popupAnchor']['y']) ? $settings['icon']['popupAnchor']['y'] : '',
+      '#element_validate' => array('element_validate_number'),
     );
   }
 
@@ -172,29 +172,34 @@ function leaflet_field_formatter_view($entity_type, $entity, $field, $instance, 
   $element = array();
   $settings = $display['settings'];
 
-  switch ($display['type']) {
-    case 'geofield_leaflet':
-      $map = leaflet_map_get_info($settings['leaflet_map']);
-
-      $features = leaflet_process_geofield($items);
-
-      // if only a single feature, set the popup content to the entity title
-      if (count($items) == 1) {
-        $features[0]['popup'] = entity_label($entity_type, $entity);
-      }
-
-      if (!empty($settings['icon']) && isset($settings['icon']['iconUrl'])) {
-        foreach($features as $key => $feature) {
-          $features[$key]['icon'] = $settings['icon'];
-        }
-      }
-
-      $element[0] = array('#markup' => leaflet_render_map($map, $features));
-
-      break;
+  if (count($items) == 0) {
+    return '';
   }
+  else {
+    switch ($display['type']) {
+      case 'geofield_leaflet':
+        $map = leaflet_map_get_info($settings['leaflet_map']);
 
-  return $element;
+        $features = leaflet_process_geofield($items);
+
+        // if only a single feature, set the popup content to the entity title
+        if (count($items) == 1) {
+          $features[0]['popup'] = entity_label($entity_type, $entity);
+        }
+
+        if (!empty($settings['icon']) && isset($settings['icon']['iconUrl'])) {
+          foreach ($features as $key => $feature) {
+            $features[$key]['icon'] = $settings['icon'];
+          }
+        }
+
+        $element[0] = array('#markup' => leaflet_render_map($map, $features));
+
+        break;
+    }
+
+    return $element; 
+  }
 }
 
 /**
@@ -203,12 +208,13 @@ function leaflet_field_formatter_view($entity_type, $entity, $field, $instance, 
  *
  * @param array $items
  *   A collection of geofield values.
+ *
  * @return array
  */
 function leaflet_process_geofield($items = array()) {
   $data = array();
 
-  geofield_load_geophp();
+  geophp_load();
 
   foreach ($items as $delta => $item) {
     // translate linestring to polyline
@@ -219,12 +225,12 @@ function leaflet_process_geofield($items = array()) {
     switch ($item['geo_type']) {
       case 'point':
         $datum += array(
-          'lat' => (float)$item['lat'],
-          'lon' => (float)$item['lon'],
+          'lat' => (float) $item['lat'],
+          'lon' => (float) $item['lon'],
         );
 
         $data[] = $datum;
-      break;
+        break;
       case 'linestring':
         $geom = geoPHP::load($item['wkt'], 'wkt');
         $components = $geom->getComponents();
@@ -237,7 +243,7 @@ function leaflet_process_geofield($items = array()) {
         }
 
         $data[] = $datum;
-      break;
+        break;
       case 'polygon':
         $geom = geoPHP::load($item['wkt'], 'wkt');
         $tmp = $geom->getComponents();
@@ -251,7 +257,7 @@ function leaflet_process_geofield($items = array()) {
         }
 
         $data[] = $datum;
-      break;
+        break;
       case 'multipolygon':
       case 'multipolyline':
         $geom = geoPHP::load($item['wkt'], 'wkt');
@@ -276,7 +282,7 @@ function leaflet_process_geofield($items = array()) {
         }
 
         $data[] = $datum;
-      break;
+        break;
     }
   }
 

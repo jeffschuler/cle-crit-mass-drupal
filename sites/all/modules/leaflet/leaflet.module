@@ -11,10 +11,10 @@ function leaflet_requirements($phase) {
   if ($phase == 'runtime' && !file_exists(libraries_get_path('leaflet') . '/dist/leaflet.js')) {
     $requirements['leaflet'] = array(
       'title' => t('Leaflet library not found'),
-      'value' => t('The %leaflet javascript library was not found. Please %download it into the libraries folder.',
+      'value' => t('The !leaflet javascript library was not found. Please !download it into the libraries folder.',
         array(
-          '%leaflet' => l('Leaflet', 'http://leaflet.cloudmade.com'),
-          '%download' => l('download', 'http://leaflet.cloudmade.com/download.html'),
+          '!leaflet' => l('Leaflet', 'http://leaflet.cloudmade.com'),
+          '!download' => l('download', 'http://leaflet.cloudmade.com/download.html'),
         )
       ),
       'severity' => REQUIREMENT_ERROR,
@@ -79,7 +79,7 @@ function leaflet_library() {
  * @return string map markup
  */
 function leaflet_render_map($map, $features = array(), $height = '400px') {
-  $map_id = 'leaflet_map_' . REQUEST_TIME;
+  $map_id = 'leaflet_map_' . md5(serialize($features) . serialize($features));
   drupal_add_library('leaflet', 'leaflet');
   drupal_add_js(drupal_get_path('module', 'leaflet') . '/leaflet.drupal.js');
   $settings = array(
