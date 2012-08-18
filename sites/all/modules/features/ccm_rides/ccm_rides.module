@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the CCM - Rides feature.
+ */
+
+include_once 'ccm_rides.features.inc';
