@@ -22,7 +22,7 @@ function ccm_rides_views_default_views() {
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Rides';
+  $handler->display->display_options['title'] = 'Rides List';
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
@@ -148,6 +148,59 @@ function ccm_rides_views_default_views() {
     'multiple_to' => '',
   );
   $handler->display->display_options['fields']['field_ride_date']['field_api_classes'] = 0;
+  /* Field: Content: Trace Type */
+  $handler->display->display_options['fields']['field_trace_type']['id'] = 'field_trace_type';
+  $handler->display->display_options['fields']['field_trace_type']['table'] = 'field_data_field_trace_type';
+  $handler->display->display_options['fields']['field_trace_type']['field'] = 'field_trace_type';
+  $handler->display->display_options['fields']['field_trace_type']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_trace_type']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_trace_type']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_trace_type']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_trace_type']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_trace_type']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_trace_type']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_trace_type']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_trace_type']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_trace_type']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['field_trace_type']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_trace_type']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_trace_type']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_trace_type']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['field_trace_type']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_trace_type']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_trace_type']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_trace_type']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['field_trace_type']['field_api_classes'] = 0;
+  /* Field: Content: Endpoint Address */
+  $handler->display->display_options['fields']['field_endpoint_address']['id'] = 'field_endpoint_address';
+  $handler->display->display_options['fields']['field_endpoint_address']['table'] = 'field_data_field_endpoint_address';
+  $handler->display->display_options['fields']['field_endpoint_address']['field'] = 'field_endpoint_address';
+  $handler->display->display_options['fields']['field_endpoint_address']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_endpoint_address']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_endpoint_address']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_endpoint_address']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_endpoint_address']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_endpoint_address']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_endpoint_address']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_endpoint_address']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_endpoint_address']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_endpoint_address']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['field_endpoint_address']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_endpoint_address']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_endpoint_address']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_endpoint_address']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['field_endpoint_address']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_endpoint_address']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_endpoint_address']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_endpoint_address']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['field_endpoint_address']['click_sort_column'] = 'country';
+  $handler->display->display_options['fields']['field_endpoint_address']['settings'] = array(
+    'use_widget_handlers' => 1,
+    'format_handlers' => array(
+      'address' => 'address',
+    ),
+  );
+  $handler->display->display_options['fields']['field_endpoint_address']['field_api_classes'] = 0;
   /* Field: Content: Attendees */
   $handler->display->display_options['fields']['field_attendees']['id'] = 'field_attendees';
   $handler->display->display_options['fields']['field_attendees']['table'] = 'field_data_field_attendees';
@@ -205,90 +258,6 @@ function ccm_rides_views_default_views() {
     'prefix_suffix' => 1,
   );
   $handler->display->display_options['fields']['field_distance']['field_api_classes'] = 0;
-  /* Field: Content: Endpoint Address */
-  $handler->display->display_options['fields']['field_endpoint_address']['id'] = 'field_endpoint_address';
-  $handler->display->display_options['fields']['field_endpoint_address']['table'] = 'field_data_field_endpoint_address';
-  $handler->display->display_options['fields']['field_endpoint_address']['field'] = 'field_endpoint_address';
-  $handler->display->display_options['fields']['field_endpoint_address']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['field_endpoint_address']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['field_endpoint_address']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['field_endpoint_address']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['field_endpoint_address']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['field_endpoint_address']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['field_endpoint_address']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['field_endpoint_address']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['field_endpoint_address']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['field_endpoint_address']['alter']['more_link'] = 0;
-  $handler->display->display_options['fields']['field_endpoint_address']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['field_endpoint_address']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['field_endpoint_address']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['field_endpoint_address']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['field_endpoint_address']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['field_endpoint_address']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['field_endpoint_address']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['field_endpoint_address']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['field_endpoint_address']['click_sort_column'] = 'country';
-  $handler->display->display_options['fields']['field_endpoint_address']['settings'] = array(
-    'use_widget_handlers' => 1,
-    'format_handlers' => array(
-      'address' => 'address',
-    ),
-  );
-  $handler->display->display_options['fields']['field_endpoint_address']['field_api_classes'] = 0;
-  /* Field: Content: Endpoint Geolocation */
-  $handler->display->display_options['fields']['field_endpoint_geolocation']['id'] = 'field_endpoint_geolocation';
-  $handler->display->display_options['fields']['field_endpoint_geolocation']['table'] = 'field_data_field_endpoint_geolocation';
-  $handler->display->display_options['fields']['field_endpoint_geolocation']['field'] = 'field_endpoint_geolocation';
-  $handler->display->display_options['fields']['field_endpoint_geolocation']['label'] = 'Endpoint Lat/Lon';
-  $handler->display->display_options['fields']['field_endpoint_geolocation']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['field_endpoint_geolocation']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['field_endpoint_geolocation']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['field_endpoint_geolocation']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['field_endpoint_geolocation']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['field_endpoint_geolocation']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['field_endpoint_geolocation']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['field_endpoint_geolocation']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['field_endpoint_geolocation']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['field_endpoint_geolocation']['alter']['more_link'] = 0;
-  $handler->display->display_options['fields']['field_endpoint_geolocation']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['field_endpoint_geolocation']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['field_endpoint_geolocation']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['field_endpoint_geolocation']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['field_endpoint_geolocation']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['field_endpoint_geolocation']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['field_endpoint_geolocation']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['field_endpoint_geolocation']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['field_endpoint_geolocation']['click_sort_column'] = 'wkt';
-  $handler->display->display_options['fields']['field_endpoint_geolocation']['type'] = 'geofield_latlon';
-  $handler->display->display_options['fields']['field_endpoint_geolocation']['settings'] = array(
-    'data' => 'full',
-    'format' => 'decimal_degrees',
-    'labels' => 1,
-  );
-  $handler->display->display_options['fields']['field_endpoint_geolocation']['field_api_classes'] = 0;
-  /* Field: Node: Edit link */
-  $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
-  $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
-  $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
-  $handler->display->display_options['fields']['edit_node']['label'] = 'Edit';
-  $handler->display->display_options['fields']['edit_node']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['edit_node']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['edit_node']['alter']['more_link'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['edit_node']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['edit_node']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['edit_node']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['edit_node']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['edit_node']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['edit_node']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['edit_node']['text'] = 'Edit';
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -309,7 +278,7 @@ function ccm_rides_views_default_views() {
   $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['path'] = 'rides';
   $handler->display->display_options['menu']['type'] = 'normal';
-  $handler->display->display_options['menu']['title'] = 'Rides';
+  $handler->display->display_options['menu']['title'] = 'Rides List';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['name'] = 'main-menu';
   $handler->display->display_options['menu']['context'] = 0;
