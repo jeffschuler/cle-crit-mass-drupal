@@ -129,12 +129,8 @@ function twitter_bootstrap_preprocess_page(&$variables) {
   // Primary nav
   $variables['primary_nav'] = FALSE;
   if($variables['main_menu']) {
-    // Build links
-    $tree = menu_tree_page_data(variable_get('menu_main_links_source', 'main-menu'));
-    $variables['main_menu'] = twitter_bootstrap_menu_navigation_links($tree);
-    
     // Build list
-    $variables['primary_nav'] = theme('twitter_bootstrap_links', array(
+    $variables['primary_nav'] = theme('links__system_main_menu', array(
       'links' => $variables['main_menu'],
       'attributes' => array(
         'id' => 'main-menu',
