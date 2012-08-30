@@ -162,8 +162,14 @@ function ccm_rides_views_default_views() {
   $handler->display->display_options['header']['area']['field'] = 'area';
   $handler->display->display_options['header']['area']['label'] = 'Header';
   $handler->display->display_options['header']['area']['content'] = '<p>If <em>Trace Type</em> is empty, we don\'t have the route for this ride. If you can help, please <a href="/contact">Contact</a>.</p>
-<p>See <a href="/about">About</a> for data attribution.</p>';
+<p>See <a href="/about">About</a> for attribution and more info.</p>';
   $handler->display->display_options['header']['area']['format'] = 'full_html';
+  $handler->display->display_options['defaults']['sorts'] = FALSE;
+  /* Sort criterion: Content: Ride Date (field_ride_date) */
+  $handler->display->display_options['sorts']['field_ride_date_value']['id'] = 'field_ride_date_value';
+  $handler->display->display_options['sorts']['field_ride_date_value']['table'] = 'field_data_field_ride_date';
+  $handler->display->display_options['sorts']['field_ride_date_value']['field'] = 'field_ride_date_value';
+  $handler->display->display_options['sorts']['field_ride_date_value']['order'] = 'DESC';
   $handler->display->display_options['path'] = 'rides';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'Rides List';
