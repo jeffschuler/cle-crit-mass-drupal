@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the CCM - Misc feature.
+ */
+
+include_once 'ccm_misc.features.inc';
