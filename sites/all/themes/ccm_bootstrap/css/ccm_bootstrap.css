@@ -44,10 +44,18 @@ label, input, button, select, textarea {
 
 
 /*
- * Content
+ * Content Section
  */
 .container .row {
   margin-top: 30px;
+}
+
+
+/*
+ * Misc
+ */
+p {
+  margin-bottom: 1em;
 }
 
 /*

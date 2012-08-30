@@ -333,13 +333,6 @@ function ccm_misc_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'sharethis_publisherID';
-  $strongarm->value = 'dr-7a509632-baec-8b28-2264-c7cb928832c8';
-  $export['sharethis_publisherID'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'sharethis_service_option';
   $strongarm->value = '"Tweet:twitter","Facebook:facebook","ShareThis:sharethis"';
   $export['sharethis_service_option'] = $strongarm;
