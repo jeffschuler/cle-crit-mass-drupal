@@ -33,11 +33,10 @@ function ccm_rides_views_default_views() {
   $handler->display->display_options['style_options']['columns'] = array(
     'nid' => 'nid',
     'field_ride_date' => 'field_ride_date',
+    'field_trace_type' => 'field_trace_type',
+    'field_endpoint_address' => 'field_endpoint_address',
     'field_attendees' => 'field_attendees',
     'field_distance' => 'field_distance',
-    'field_endpoint_address' => 'field_endpoint_address',
-    'field_endpoint_geolocation' => 'field_endpoint_geolocation',
-    'edit_node' => 'edit_node',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -55,14 +54,7 @@ function ccm_rides_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'field_attendees' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_distance' => array(
+    'field_trace_type' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -76,14 +68,16 @@ function ccm_rides_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'field_endpoint_geolocation' => array(
-      'sortable' => 0,
+    'field_attendees' => array(
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
-    'edit_node' => array(
+    'field_distance' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
