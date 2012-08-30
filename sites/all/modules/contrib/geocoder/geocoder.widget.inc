@@ -208,7 +208,7 @@ function geocoder_widget_get_field_value($entity_type, $field_instance, $entity 
         $source_field_values = array(array('value' => $entity->$field_name));
       }
       else if ($entity) {
-        $source_field_values = field_get_items($entity_type, $entity, $field_name, $entity->language);
+        $source_field_values = field_get_items($entity_type, $entity, $field_name, isset($entity->language) ? $entity->language : NULL);
       }
       else {
         // We can't find the source values
@@ -234,7 +234,7 @@ function geocoder_widget_get_field_value($entity_type, $field_instance, $entity 
       if (!empty($entity->original)) {
         //@@TODO: Deal with entity-properties (non-fields)
         //@@TODO: This isn't working with file fields. Should use some kind of lookup / map
-        $field_original = field_get_items($entity_type, $entity->original, $field_name, $entity->language);
+        $field_original = field_get_items($entity_type, $entity->original, $field_name, isset($entity->original->language) ? $entity->original->language : NULL);
         if (!empty($field_original)) {
           $diff = geocoder_widget_array_recursive_diff($field_original, $source_field_values);
           if (empty($diff)) {
