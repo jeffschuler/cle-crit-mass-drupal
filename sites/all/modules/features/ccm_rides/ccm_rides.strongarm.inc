@@ -67,7 +67,13 @@ return $datetime->format(\'Y-m-d\');
           'weight' => '0',
         ),
         'path' => array(
+          'weight' => '12',
+        ),
+        'metatags' => array(
           'weight' => '11',
+        ),
+        'redirect' => array(
+          'weight' => '13',
         ),
       ),
       'display' => array(

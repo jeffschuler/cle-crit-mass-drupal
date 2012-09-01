@@ -201,7 +201,7 @@ function ccm_rides_field_default_fields() {
           ),
         ),
         'type' => 'addressfield_standard',
-        'weight' => '3',
+        'weight' => '2',
       ),
     ),
   );
@@ -292,7 +292,7 @@ function ccm_rides_field_default_fields() {
           ),
         ),
         'type' => 'geocoder',
-        'weight' => '4',
+        'weight' => '3',
       ),
     ),
   );
@@ -530,6 +530,79 @@ function ccm_rides_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-ride-field_route'.
+  $fields['node-ride-field_route'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_route',
+      'foreign keys' => array(
+        'fid' => array(
+          'columns' => array(
+            'fid' => 'fid',
+          ),
+          'table' => 'file_managed',
+        ),
+      ),
+      'indexes' => array(
+        'fid' => array(
+          0 => 'fid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'file',
+      'settings' => array(
+        'display_default' => 0,
+        'display_field' => 0,
+        'uri_scheme' => 'public',
+      ),
+      'translatable' => '0',
+      'type' => 'file',
+    ),
+    'field_instance' => array(
+      'bundle' => 'ride',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'file',
+          'settings' => array(),
+          'type' => 'file_default',
+          'weight' => 10,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_route',
+      'label' => 'Route',
+      'required' => 0,
+      'settings' => array(
+        'description_field' => 0,
+        'file_directory' => '',
+        'file_extensions' => 'gpx kml',
+        'max_filesize' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'file',
+        'settings' => array(
+          'progress_indicator' => 'throbber',
+        ),
+        'type' => 'file_generic',
+        'weight' => '4',
+      ),
+    ),
+  );
+
   // Exported field: 'node-ride-field_route_link'.
   $fields['node-ride-field_route_link'] = array(
     'field_config' => array(
@@ -685,6 +758,7 @@ function ccm_rides_field_default_fields() {
   t('Notes');
   t('Ride Date');
   t('Ride Recap Link');
+  t('Route');
   t('Route Link');
   t('Trace Type');
 
