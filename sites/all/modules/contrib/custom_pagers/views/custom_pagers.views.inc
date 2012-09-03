@@ -40,7 +40,7 @@ function custom_pagers_views_plugins() {
         'handler' => 'custom_pagers_plugin_style_php_array',
         'no ui' => TRUE, // Programmatic use only.
         'uses row plugin' => FALSE,
-        'uses fields' => FALSE,
+        'uses fields' => TRUE,
         'type' => 'custom_pagers_simple',
         'even empty' => TRUE,
       ),

@@ -19,7 +19,7 @@ function custom_pagers_page() {
     $row = array();
     $row[] = $pager->title;
     $row[] = !empty($pager->list_php) ? t('PHP snippet') : t('%view_name view', array('%view_name' => $pager->view));
-    $row[] = !empty($pager->visibility_php) ? t('PHP snippet') : t('%node_type nodes', array('%node_type' => $pager->node_type));
+    $row[] = !empty($pager->visibility_php) ? t('PHP snippet') : t('%node_type nodes', array('%node_type' => implode(',', $pager->node_type)));
     $row[] =  l(t('edit'), 'admin/structure/custom_pagers/edit/' . $pager->pid);
     $rows[] = $row;
   }

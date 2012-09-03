@@ -193,6 +193,7 @@ function _custom_pagers_load_all_pagers($refresh = FALSE) {
 
     $pagers = array();
     foreach ($result as $pager) {
+      $pager->node_type = explode(',', $pager->node_type);
       $pagers[$pager->pid] = $pager;
     }
   }
@@ -214,18 +215,17 @@ function _custom_pagers_delete_pager($pid) {
 }
 
 function _custom_pagers_visibility($pager, $node) {
-  $visible = FALSE;
   if (!empty($pager->visibility_php)) {
     // Use PHP code to generate the list.
     ob_start();
     $result = eval(trim($pager->visibility_php));
-    $visible = ($result == TRUE);
     ob_end_clean();
+    return ($result == TRUE);
   }
   elseif (!empty($pager->node_type)) {
-    $visible = (strpos($pager->node_type, $node->type) !== FALSE);
+    return in_array($node->type, $pager->node_type);
   }
-  return $visible;
+  return FALSE;
 }
 
 function custom_pager_build_nav($pager, $node) {
@@ -254,7 +254,10 @@ function custom_pager_build_nav($pager, $node) {
     }
   }
 
-  return pager_entries_by_val($node->nid, $list);
+  if (!empty($list)) {
+    return pager_entries_by_val($node->nid, $list);
+  }
+  return FALSE;
 }
 
 // Helper functions to pull proper entries from a list of nids.
@@ -302,7 +305,6 @@ function custom_pagers_get_list_from_view($pager, $node) {
 
     $view->set_display($display);
     $view->display_handler->set_option('style_plugin', 'custom_pagers_php_array');
-    $view->display_handler->set_option('items_per_page', 0);
 
     // Get arguments for the view.
     if (!empty($pager->args)) {
@@ -317,7 +319,7 @@ function custom_pagers_get_list_from_view($pager, $node) {
 
     // Remove the number-of-items-per-page restriction, as it will mess up
     // our counts.
-    $view->pager['items_per_page'] = 0;
+    $view->set_items_per_page(0);
 
     // Get the results.
     $result = $view->execute_display($display, $args);
