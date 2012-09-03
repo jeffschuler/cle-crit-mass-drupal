@@ -82,3 +82,19 @@ body.admin-menu .navbar-fixed-top {
   top: 32px;
   z-index: 499;
 }
+
+
+/*
+ * Rides Custom Pager
+ */
+.custom-pager-wrapper {
+  width: 100%;
+  text-align: center;
+}
+ul.custom-pager {
+  display: block;
+}
+ul.custom-pager li {
+  display: inline-block;
+  float: none;
+}
