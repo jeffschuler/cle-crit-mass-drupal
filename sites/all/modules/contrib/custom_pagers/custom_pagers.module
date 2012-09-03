@@ -357,3 +357,18 @@ function custom_pagers_views_api() {
     'path' => drupal_get_path('module', 'custom_pagers') . '/views',
   );
 }
+
+/**
+ * Implements hook_features_api().
+ */
+function custom_pagers_features_api() {
+  return array(
+    'custom_pagers' => array
+    (
+      'name' => 'Custom pagers',
+      'file' => drupal_get_path('module', 'custom_pagers') .'/custom_pagers.features.inc',
+      'default_hook' => 'default_custom_pagers',
+      'features_source' => TRUE,
+    ),
+  );
+}
