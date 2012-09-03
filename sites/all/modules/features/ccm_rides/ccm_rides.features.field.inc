@@ -42,7 +42,7 @@ function ccm_rides_field_default_fields() {
             'thousand_separator' => ' ',
           ),
           'type' => 'number_integer',
-          'weight' => '5',
+          'weight' => '7',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -106,7 +106,7 @@ function ccm_rides_field_default_fields() {
             'thousand_separator' => ' ',
           ),
           'type' => 'number_decimal',
-          'weight' => '7',
+          'weight' => '9',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -229,27 +229,8 @@ function ccm_rides_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'leaflet',
-          'settings' => array(
-            'icon' => array(
-              'iconAnchor' => array(
-                'x' => '0',
-                'y' => '0',
-              ),
-              'iconSize' => array(
-                'x' => '25',
-                'y' => '41',
-              ),
-              'iconUrl' => 'sites/all/libraries/leaflet/dist/images/marker-icon.png',
-              'popupAnchor' => array(
-                'x' => '',
-                'y' => '',
-              ),
-              'shadowUrl' => 'sites/all/libraries/leaflet/dist/images/marker-shadow.png',
-            ),
-            'leaflet_map' => 'OSM Mapnik',
-          ),
-          'type' => 'geofield_leaflet',
+          'settings' => array(),
+          'type' => 'hidden',
           'weight' => '1',
         ),
         'teaser' => array(
@@ -335,7 +316,7 @@ function ccm_rides_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '6',
+          'weight' => '8',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -488,7 +469,7 @@ function ccm_rides_field_default_fields() {
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
-          'weight' => '4',
+          'weight' => '6',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -568,10 +549,40 @@ function ccm_rides_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'file',
-          'settings' => array(),
-          'type' => 'file_default',
-          'weight' => 10,
+          'module' => 'geofile',
+          'settings' => array(
+            'data' => 'full',
+            'hybrid_mode' => 'single',
+            'layer_type' => 'auto',
+            'map_preset' => 'geofile_formatter_map',
+            'openlayers_layer_type_gml' => array(
+              'extractAttributes' => 1,
+              'extractRoutes' => 1,
+              'extractTracks' => 1,
+              'extractWaypoints' => 1,
+              'projection' => array(
+                0 => '4326',
+              ),
+            ),
+            'openlayers_layer_type_kml' => array(
+              'extractAttributes' => 1,
+              'extractStyles' => 1,
+              'maxDepth' => '1',
+              'projection' => array(
+                0 => '4326',
+              ),
+            ),
+            'openlayers_layer_type_pointtrack' => array(
+              'extractAttributes' => 1,
+              'extractStyles' => 1,
+              'maxDepth' => '1',
+              'projection' => array(
+                0 => '4326',
+              ),
+            ),
+          ),
+          'type' => 'geofile_file',
+          'weight' => '3',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -644,7 +655,7 @@ function ccm_rides_field_default_fields() {
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
-          'weight' => '3',
+          'weight' => '5',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -723,7 +734,7 @@ function ccm_rides_field_default_fields() {
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => '9',
+          'weight' => '4',
         ),
         'teaser' => array(
           'label' => 'above',

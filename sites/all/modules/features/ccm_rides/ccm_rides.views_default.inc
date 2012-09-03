@@ -182,15 +182,6 @@ function ccm_rides_views_default_views() {
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['style_plugin'] = 'views_geojson_feed';
-  $handler->display->display_options['style_options']['data_source']['value'] = 'geofield';
-  $handler->display->display_options['style_options']['data_source']['latitude'] = 'field_ride_date';
-  $handler->display->display_options['style_options']['data_source']['longitude'] = 'field_ride_date';
-  $handler->display->display_options['style_options']['data_source']['geofield'] = 'field_endpoint_geolocation';
-  $handler->display->display_options['style_options']['data_source']['wkt'] = 'field_ride_date';
-  $handler->display->display_options['style_options']['data_source']['name_field'] = 'field_ride_date';
-  $handler->display->display_options['style_options']['data_source']['description_field'] = 'field_endpoint_address';
-  $handler->display->display_options['style_options']['jsonp_prefix'] = '';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Content: Ride Date */
   $handler->display->display_options['fields']['field_ride_date']['id'] = 'field_ride_date';
