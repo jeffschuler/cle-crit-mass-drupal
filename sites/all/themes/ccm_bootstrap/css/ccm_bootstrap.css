@@ -73,3 +73,12 @@ p {
 .form-type-radio {
   margin-bottom: 2px;
 }
+
+
+/*
+ * Admin
+ */
+body.admin-menu .navbar-fixed-top {
+  top: 32px;
+  z-index: 499;
+}
