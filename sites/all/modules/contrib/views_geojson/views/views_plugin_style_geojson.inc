@@ -21,13 +21,11 @@ class views_plugin_style_geojson extends views_plugin_style {
         'value' => array('default' => 'asc'),
         'latitude' => array('default' => 0),
         'longitude' => array('default' => 0),
-        'openlayers_wkt' => array('default' => 0),
-        'bbox_top' => array('default' => 0),
-        'bbox_right' => array('default' => 0),
-        'bbox_bottom' => array('default' => 0),
-        'bbox_left' => array('default' => 0),
+        'geofield' => array('default' => 0),
+        'wkt' => array('default' => 0),
         'name_field' => array('default' => 0),
         'description_field' => array('default' => 0),
+        'view_mode' => array('default' => 'full'),
       ),
     );
     $options['attributes'] = array('default' => NULL, 'translatable' => FALSE);
@@ -70,7 +68,6 @@ class views_plugin_style_geojson extends views_plugin_style {
     // Default data source
     $data_source_options = array(
       'latlon' => t('Other: Lat/Lon Point'),
-      'boundingbox' => t('Other: Bounding Box'),
       'geofield' => t('Geofield'),
       'wkt' => t('WKT'),
     );
@@ -80,8 +77,6 @@ class views_plugin_style_geojson extends views_plugin_style {
       '#type' => 'fieldset',
       '#tree' => TRUE,
       '#title' => t('Data Source'),
-//      '#collapsible' => TRUE,
-//      '#collapsed' => FALSE,
     );
     $form['data_source']['value'] = array(
       '#type' => 'select',
@@ -141,44 +136,6 @@ class views_plugin_style_geojson extends views_plugin_style {
         '#process' => array('ctools_dependent_process'),
         '#dependency' => array('edit-style-options-data-source-value' => array('wkt')),
       );
-
-      // Other: Bounding Box
-      $form['data_source']['bbox_top'] = array(
-        '#type' => 'select',
-        '#title' => t('Top Field'),
-        '#description' => t('Choose a field for Top.  This should be a field that is a decimal or float value.'),
-        '#options' => $fields,
-        '#default_value' => $this->options['data_source']['bbox_top'],
-        '#process' => array('ctools_dependent_process'),
-        '#dependency' => array('edit-style-options-data-source-value' => array('boundingbox')),
-      );
-      $form['data_source']['bbox_right'] = array(
-        '#type' => 'select',
-        '#title' => t('Right Field'),
-        '#description' => t('Choose a field for Right.  This should be a field that is a decimal or float value.'),
-        '#options' => $fields,
-        '#default_value' => $this->options['data_source']['bbox_right'],
-        '#process' => array('ctools_dependent_process'),
-        '#dependency' => array('edit-style-options-data-source-value' => array('boundingbox')),
-      );
-      $form['data_source']['bbox_bottom'] = array(
-        '#type' => 'select',
-        '#title' => t('Bottom Field'),
-        '#description' => t('Choose a field for Bottom.  This should be a field that is a decimal or float value.'),
-        '#options' => $fields,
-        '#default_value' => $this->options['data_source']['bbox_bottom'],
-        '#process' => array('ctools_dependent_process'),
-        '#dependency' => array('edit-style-options-data-source-value' => array('boundingbox')),
-      );
-      $form['data_source']['bbox_left'] = array(
-        '#type' => 'select',
-        '#title' => t('Left Field'),
-        '#description' => t('Choose a field for Left.  This should be a field that is a decimal or float value.'),
-        '#options' => $fields,
-        '#default_value' => $this->options['data_source']['bbox_left'],
-        '#process' => array('ctools_dependent_process'),
-        '#dependency' => array('edit-style-options-data-source-value' => array('boundingbox')),
-      );
     }
     $form['data_source']['name_field'] = array(
         '#type' => 'select',
@@ -236,8 +193,8 @@ class views_plugin_style_geojson extends views_plugin_style {
       '#type' => 'fieldset',
       '#title' => t('Attributes and Styling'),
       '#description' => t('Attributes are field data attached to each feature.  This can be used with styling to create Variable styling.'),
-//      '#collapsible' => TRUE,
-//      '#collapsed' => TRUE,
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
     );
     $form['jsonp_prefix'] = array(
       '#type' => 'textfield',
@@ -275,25 +232,17 @@ class views_plugin_style_geojson extends views_plugin_style {
     foreach ($this->view->display_handler->get_handlers('field') as $field => $handler) {
       if (($field != $this->options['data_source']['name_field']) && ($field != $this->options['data_source']['description_field'])) {
         $variable_fields[$field] = '${' . $field . '}';
-        $variable_fields[$field . '_rendered'] = '${' . $field . '_rendered}';
       }
     }
+    $variables_list = array('items' => $variable_fields, 'attributes' => array('class' => array('description')));
+
+    $markup = '<p class="description">' . t('Fields added to this view will be attached to their respective feature, (point, line, polygon,) as attributes. These attributes can then be used to add variable styling to your themes. This is accomplished by using the %syntax syntax in the values for a style.  The following is a list of formatted variables that are currently available; these can be placed right in the style interface.', array('%syntax' => '${field_name}')) . '</p>';
+    $markup .= theme('item_list', $variables_list);
+    $markup .= '<p class="description">' . t('Please note that this does not apply to Grouped Displays.') . '</p>';
+
     $form['attributes']['styling'] = array(
       '#type' => 'markup',
-      '#value' => '
-        <p>' . t('Any fields that you add to this view will be attached to their respective feature (point, line, polygon) as attributes.  These attributes can then be used to add variable styling to your themes.  This is accomplished by using the %syntax syntax in the values for a style.  The following is a list of formatted variables that are currently available; these can be placed right in the style interface.  The %rendered one means that it has been processed by Views and may have a different value.', array('%syntax' => '${field_name}', '%rendered' => '_rendered')) . '</p>
-        ' . theme('item_list', $variable_fields) . '
-        <p>' . t('Please note that this does not apply to Grouped Displays.') . '</p>
-      ',
-    );
-  }
-
-  function get_bounds($fields, $data_source) {
-    return array(
-      $fields[$data_source['bbox_top']]['field_alias'],
-      $fields[$data_source['bbox_right']]['field_alias'],
-      $fields[$data_source['bbox_left']]['field_alias'],
-      $fields[$data_source['bbox_bottom']]['field_alias'],
+      '#markup' => $markup,
     );
   }
 
