@@ -26,6 +26,26 @@ function ccm_rides_views_api() {
 }
 
 /**
+ * Implements hook_default_custom_pagers().
+ */
+function ccm_rides_default_custom_pagers() {
+  $custom_pagers = array();
+
+  $custom_pagers[] = array(
+    'pid' => '1',
+    'title' => 'Rides',
+    'list_php' => '',
+    'view' => 'rides',
+    'args' => '',
+    'position' => 'top',
+    'visibility_php' => '',
+    'node_type' => 'ride',
+    'reverse_list' => '0',
+  );
+  return $custom_pagers;
+}
+
+/**
  * Implements hook_node_info().
  */
 function ccm_rides_node_info() {
