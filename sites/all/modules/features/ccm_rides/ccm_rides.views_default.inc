@@ -182,7 +182,7 @@ function ccm_rides_views_default_views() {
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'views_geojson';
-  $handler->display->display_options['style_options']['data_source']['value'] = 'latlon';
+  $handler->display->display_options['style_options']['data_source']['value'] = 'geofield';
   $handler->display->display_options['style_options']['data_source']['latitude'] = 'field_endpoint_address_1';
   $handler->display->display_options['style_options']['data_source']['longitude'] = 'field_endpoint_address_1';
   $handler->display->display_options['style_options']['data_source']['geofield'] = 'field_endpoint_geolocation';
@@ -290,6 +290,28 @@ function ccm_rides_views_default_views() {
   $handler->display->display_options['fields']['field_endpoint_geolocation']['settings'] = array(
     'data' => 'full',
   );
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'ride' => 'ride',
+  );
+  $handler->display->display_options['filters']['type']['group'] = 1;
+  /* Filter criterion: Content: Endpoint Geolocation (field_endpoint_geolocation:wkt) */
+  $handler->display->display_options['filters']['field_endpoint_geolocation_wkt']['id'] = 'field_endpoint_geolocation_wkt';
+  $handler->display->display_options['filters']['field_endpoint_geolocation_wkt']['table'] = 'field_data_field_endpoint_geolocation';
+  $handler->display->display_options['filters']['field_endpoint_geolocation_wkt']['field'] = 'field_endpoint_geolocation_wkt';
+  $handler->display->display_options['filters']['field_endpoint_geolocation_wkt']['operator'] = 'not empty';
   $handler->display->display_options['path'] = 'ride-destinations.geojson';
   $export['rides'] = $view;
 
