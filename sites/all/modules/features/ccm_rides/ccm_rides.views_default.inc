@@ -62,7 +62,7 @@ function ccm_rides_views_default_views() {
       'empty_column' => 0,
     ),
     'field_endpoint_address' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -76,7 +76,7 @@ function ccm_rides_views_default_views() {
       'empty_column' => 0,
     ),
     'field_distance' => array(
-      'sortable' => 1,
+      'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -178,11 +178,56 @@ function ccm_rides_views_default_views() {
   $handler->display->display_options['menu']['context'] = 0;
 
   /* Display: GeoJSON */
-  $handler = $view->new_display('feed', 'GeoJSON', 'feed_1');
+  $handler = $view->new_display('page', 'GeoJSON', 'page_1');
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
-  $handler->display->display_options['pager']['type'] = 'none';
-  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'views_geojson';
+  $handler->display->display_options['style_options']['data_source']['value'] = 'latlon';
+  $handler->display->display_options['style_options']['data_source']['latitude'] = 'field_endpoint_address_1';
+  $handler->display->display_options['style_options']['data_source']['longitude'] = 'field_endpoint_address_1';
+  $handler->display->display_options['style_options']['data_source']['geofield'] = 'field_endpoint_geolocation';
+  $handler->display->display_options['style_options']['data_source']['wkt'] = 'field_endpoint_address_1';
+  $handler->display->display_options['style_options']['data_source']['name_field'] = 'field_ride_date';
+  $handler->display->display_options['style_options']['data_source']['description_field'] = 'field_endpoint_address';
+  $handler->display->display_options['style_options']['jsonp_prefix'] = '';
+  $handler->display->display_options['style_options']['using_views_api_mode'] = 0;
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Endpoint Address */
+  $handler->display->display_options['fields']['field_endpoint_address_1']['id'] = 'field_endpoint_address_1';
+  $handler->display->display_options['fields']['field_endpoint_address_1']['table'] = 'field_data_field_endpoint_address';
+  $handler->display->display_options['fields']['field_endpoint_address_1']['field'] = 'field_endpoint_address';
+  $handler->display->display_options['fields']['field_endpoint_address_1']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_endpoint_address_1']['alter']['strip_tags'] = TRUE;
+  $handler->display->display_options['fields']['field_endpoint_address_1']['click_sort_column'] = 'country';
+  $handler->display->display_options['fields']['field_endpoint_address_1']['type'] = 'organisation_name';
+  $handler->display->display_options['fields']['field_endpoint_address_1']['settings'] = array(
+    'use_widget_handlers' => 1,
+    'format_handlers' => array(
+      'address' => 'address',
+    ),
+  );
+  /* Field: Content: Endpoint Address */
+  $handler->display->display_options['fields']['field_endpoint_address_2']['id'] = 'field_endpoint_address_2';
+  $handler->display->display_options['fields']['field_endpoint_address_2']['table'] = 'field_data_field_endpoint_address';
+  $handler->display->display_options['fields']['field_endpoint_address_2']['field'] = 'field_endpoint_address';
+  $handler->display->display_options['fields']['field_endpoint_address_2']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_endpoint_address_2']['alter']['strip_tags'] = TRUE;
+  $handler->display->display_options['fields']['field_endpoint_address_2']['click_sort_column'] = 'country';
+  $handler->display->display_options['fields']['field_endpoint_address_2']['type'] = 'thoroughfare';
+  $handler->display->display_options['fields']['field_endpoint_address_2']['settings'] = array(
+    'use_widget_handlers' => 1,
+    'format_handlers' => array(
+      'address' => 'address',
+    ),
+  );
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
   /* Field: Content: Ride Date */
   $handler->display->display_options['fields']['field_ride_date']['id'] = 'field_ride_date';
   $handler->display->display_options['fields']['field_ride_date']['table'] = 'field_data_field_ride_date';
@@ -190,12 +235,32 @@ function ccm_rides_views_default_views() {
   $handler->display->display_options['fields']['field_ride_date']['label'] = 'Date';
   $handler->display->display_options['fields']['field_ride_date']['alter']['path'] = 'node/[nid]';
   $handler->display->display_options['fields']['field_ride_date']['alter']['strip_tags'] = TRUE;
+  $handler->display->display_options['fields']['field_ride_date']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_ride_date']['settings'] = array(
     'format_type' => 'short',
     'fromto' => 'both',
     'multiple_number' => '',
     'multiple_from' => '',
     'multiple_to' => '',
+  );
+  /* Field: Content: Trace Type */
+  $handler->display->display_options['fields']['field_trace_type']['id'] = 'field_trace_type';
+  $handler->display->display_options['fields']['field_trace_type']['table'] = 'field_data_field_trace_type';
+  $handler->display->display_options['fields']['field_trace_type']['field'] = 'field_trace_type';
+  /* Field: Content: Endpoint Address */
+  $handler->display->display_options['fields']['field_endpoint_address']['id'] = 'field_endpoint_address';
+  $handler->display->display_options['fields']['field_endpoint_address']['table'] = 'field_data_field_endpoint_address';
+  $handler->display->display_options['fields']['field_endpoint_address']['field'] = 'field_endpoint_address';
+  $handler->display->display_options['fields']['field_endpoint_address']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_endpoint_address']['alter']['text'] = '[field_endpoint_address-organisation_name] - [field_endpoint_address-thoroughfare]';
+  $handler->display->display_options['fields']['field_endpoint_address']['alter']['strip_tags'] = TRUE;
+  $handler->display->display_options['fields']['field_endpoint_address']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_endpoint_address']['click_sort_column'] = 'country';
+  $handler->display->display_options['fields']['field_endpoint_address']['settings'] = array(
+    'use_widget_handlers' => 1,
+    'format_handlers' => array(
+      'address' => 'address',
+    ),
   );
   /* Field: Content: Attendees */
   $handler->display->display_options['fields']['field_attendees']['id'] = 'field_attendees';
@@ -210,61 +275,21 @@ function ccm_rides_views_default_views() {
   $handler->display->display_options['fields']['field_distance']['table'] = 'field_data_field_distance';
   $handler->display->display_options['fields']['field_distance']['field'] = 'field_distance';
   $handler->display->display_options['fields']['field_distance']['label'] = 'Distance (mi)';
-  $handler->display->display_options['fields']['field_distance']['alter']['strip_tags'] = TRUE;
   $handler->display->display_options['fields']['field_distance']['settings'] = array(
     'thousand_separator' => ' ',
     'decimal_separator' => '.',
     'scale' => '2',
     'prefix_suffix' => 1,
   );
-  /* Field: Content: Endpoint Address */
-  $handler->display->display_options['fields']['field_endpoint_address']['id'] = 'field_endpoint_address';
-  $handler->display->display_options['fields']['field_endpoint_address']['table'] = 'field_data_field_endpoint_address';
-  $handler->display->display_options['fields']['field_endpoint_address']['field'] = 'field_endpoint_address';
-  $handler->display->display_options['fields']['field_endpoint_address']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_endpoint_address']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_endpoint_address']['alter']['text'] = '[field_endpoint_address-organisation_name] - [field_endpoint_address-thoroughfare]';
-  $handler->display->display_options['fields']['field_endpoint_address']['alter']['strip_tags'] = TRUE;
-  $handler->display->display_options['fields']['field_endpoint_address']['click_sort_column'] = 'country';
-  $handler->display->display_options['fields']['field_endpoint_address']['settings'] = array(
-    'use_widget_handlers' => 1,
-    'format_handlers' => array(
-      'address' => 'address',
-    ),
-  );
   /* Field: Content: Endpoint Geolocation */
   $handler->display->display_options['fields']['field_endpoint_geolocation']['id'] = 'field_endpoint_geolocation';
   $handler->display->display_options['fields']['field_endpoint_geolocation']['table'] = 'field_data_field_endpoint_geolocation';
   $handler->display->display_options['fields']['field_endpoint_geolocation']['field'] = 'field_endpoint_geolocation';
-  $handler->display->display_options['fields']['field_endpoint_geolocation']['label'] = 'Endpoint Lat/Lon';
+  $handler->display->display_options['fields']['field_endpoint_geolocation']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_endpoint_geolocation']['click_sort_column'] = 'wkt';
-  $handler->display->display_options['fields']['field_endpoint_geolocation']['type'] = 'geofield_latlon';
   $handler->display->display_options['fields']['field_endpoint_geolocation']['settings'] = array(
     'data' => 'full',
-    'format' => 'decimal_degrees',
-    'labels' => 1,
   );
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
-  $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Content: Published */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = 1;
-  $handler->display->display_options['filters']['status']['group'] = 1;
-  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'ride' => 'ride',
-  );
-  /* Filter criterion: Content: Endpoint Geolocation (field_endpoint_geolocation:wkt) */
-  $handler->display->display_options['filters']['field_endpoint_geolocation_wkt']['id'] = 'field_endpoint_geolocation_wkt';
-  $handler->display->display_options['filters']['field_endpoint_geolocation_wkt']['table'] = 'field_data_field_endpoint_geolocation';
-  $handler->display->display_options['filters']['field_endpoint_geolocation_wkt']['field'] = 'field_endpoint_geolocation_wkt';
-  $handler->display->display_options['filters']['field_endpoint_geolocation_wkt']['operator'] = 'not empty';
   $handler->display->display_options['path'] = 'ride-destinations.geojson';
   $export['rides'] = $view;
 
