@@ -1,0 +1,14 @@
+<?php
+/**
+ * @file
+ * Customizations for CCM site.
+ */
+
+/*
+ * Page preprocess.
+ * Add js customizations.
+ */
+function ccm_custom_preprocess_page(&$variables) {
+  drupal_add_js(drupal_get_path('module', 'ccm_custom') . '/ccm_custom.js');
+  $variables['scripts'] = drupal_get_js();
+}
