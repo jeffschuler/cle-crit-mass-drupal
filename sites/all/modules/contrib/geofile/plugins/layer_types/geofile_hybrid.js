@@ -17,8 +17,6 @@
                 return new OpenLayers.Format.KML(layer_embed['formatOptions']);
             }else if (layer_embed['layer_handler'] == 'gml') {
                 return new OpenLayers.Format.GPX(layer_embed['formatOptions']);
-            }else if (layer_embed['layer_handler'] == 'pointtrack') {
-                return new OpenLayers.Format.PointTrack(layer_embed['formatOptions']);
             }
         }
 

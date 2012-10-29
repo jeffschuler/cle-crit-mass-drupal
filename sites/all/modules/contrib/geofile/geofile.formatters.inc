@@ -20,6 +20,7 @@ function geofile_field_formatter_info() {
         'hybrid_mode' => 'single',
         'openlayers_layer_type_kml' => array(
           'extractStyles' => TRUE,
+          'extractTracks' => TRUE,
           'extractAttributes' => TRUE,
           'maxDepth' => 1,
         ),
@@ -28,11 +29,6 @@ function geofile_field_formatter_info() {
           'extractRoutes' => TRUE,
           'extractAttributes' => TRUE,
           'extractTracks' => TRUE,
-        ),
-        'openlayers_layer_type_pointtrack' => array(
-          'extractStyles' => TRUE,
-          'extractAttributes' => TRUE,
-          'maxDepth' => 1,
         ),
       ),
     ),
@@ -67,7 +63,8 @@ function geofile_field_formatter_settings_form($field, $instance, $view_mode, $f
 
       if ($plugin['module'] == 'openlayers' && $plugin['name'] == 'openlayers_layer_type_kml') {
 
-      } elseif ($plugin['module'] != 'geofile_views' || $plugin['name'] == 'geofile_views_file') {
+      }
+      elseif ($plugin['module'] != 'geofile_views' || $plugin['name'] == 'geofile_views_file') {
         continue;
       }
 
@@ -117,41 +114,34 @@ function geofile_field_formatter_settings_form($field, $instance, $view_mode, $f
       '#collapsed' => TRUE
     );
 
-    $element['openlayers_layer_type_pointtrack'] = array(
-      '#type' => 'fieldset',
-      '#title' => 'PointTrack',
-      '#collapsible' => TRUE,
-      '#collapsed' => TRUE
-    );
-
     $element['openlayers_layer_type_kml']['extractStyles'] = array(
-        '#type' => 'checkbox',
-        '#title' => t('Extract Styles'),
-        '#description' => t('Extract styles from KML.'),
-        '#default_value' => isset(
-        $settings['openlayers_layer_type_kml']['extractStyles']) ?
-          $settings['openlayers_layer_type_kml']['extractStyles'] : TRUE,
-      );
-      $element['openlayers_layer_type_kml']['extractAttributes'] = array(
-        '#type' => 'checkbox',
-        '#title' => t('Extract Attributes'),
-        '#description' => t('Extract attributes from KML.'),
-        '#default_value' => isset(
-        $settings['openlayers_layer_type_kml']['extractAttributes']) ?
-          $settings['openlayers_layer_type_kml']['extractAttributes'] : TRUE,
-      );
-      $element['openlayers_layer_type_kml']['maxDepth'] = array(
-        '#type' => 'textfield',
-        '#title' => t('Max depth'),
-        '#description' => t('Max depth.'),
-        '#default_value' => isset(
-        $settings['openlayers_layer_type_kml']['maxDepth']) ?
-          $settings['openlayers_layer_type_kml']['maxDepth'] : 1,
-      );
-      $element['openlayers_layer_type_kml']['projection'] = array(
-        '#type' => 'hidden',
-        '#value' => array('4326'),
-      );
+      '#type' => 'checkbox',
+      '#title' => t('Extract Styles'),
+      '#description' => t('Extract styles from KML.'),
+      '#default_value' => isset(
+      $settings['openlayers_layer_type_kml']['extractStyles']) ?
+        $settings['openlayers_layer_type_kml']['extractStyles'] : TRUE,
+    );
+    $element['openlayers_layer_type_kml']['extractAttributes'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Extract Attributes'),
+      '#description' => t('Extract attributes from KML.'),
+      '#default_value' => isset(
+      $settings['openlayers_layer_type_kml']['extractAttributes']) ?
+        $settings['openlayers_layer_type_kml']['extractAttributes'] : TRUE,
+    );
+    $element['openlayers_layer_type_kml']['maxDepth'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Max depth'),
+      '#description' => t('Max depth.'),
+      '#default_value' => isset(
+      $settings['openlayers_layer_type_kml']['maxDepth']) ?
+        $settings['openlayers_layer_type_kml']['maxDepth'] : 1,
+    );
+    $element['openlayers_layer_type_kml']['projection'] = array(
+      '#type' => 'hidden',
+      '#value' => array('4326'),
+    );
 
     $element['openlayers_layer_type_gml']['extractWaypoints'] = array(
       '#type' => 'checkbox',
@@ -159,8 +149,8 @@ function geofile_field_formatter_settings_form($field, $instance, $view_mode, $f
       '#description' => t('Extract waypoints from GPX.'),
       '#default_value' => isset(
       $settings['openlayers_layer_type_gml']['extractWaypoints']) ?
-          $settings['openlayers_layer_type_gml']['extractWaypoints'] : TRUE,
-      );
+        $settings['openlayers_layer_type_gml']['extractWaypoints'] : TRUE,
+    );
     $element['openlayers_layer_type_gml']['extractRoutes'] = array(
       '#type' => 'checkbox',
       '#title' => t('Extract Routes'),
@@ -186,35 +176,6 @@ function geofile_field_formatter_settings_form($field, $instance, $view_mode, $f
         $settings['openlayers_layer_type_gml']['extractTracks'] : TRUE,
     );
     $element['openlayers_layer_type_gml']['projection'] = array(
-      '#type' => 'hidden',
-      '#value' => array('4326'),
-    );
-
-    $element['openlayers_layer_type_pointtrack']['extractStyles'] = array(
-      '#type' => 'checkbox',
-      '#title' => t('Extract Styles'),
-      '#description' => t('Extract styles from KML.'),
-      '#default_value' => isset(
-      $settings['openlayers_layer_type_pointtrack']['extractStyles']) ?
-        $settings['openlayers_layer_type_pointtrack']['extractStyles'] : TRUE,
-    );
-    $element['openlayers_layer_type_pointtrack']['extractAttributes'] = array(
-      '#type' => 'checkbox',
-      '#title' => t('Extract Attributes'),
-      '#description' => t('Extract attributes from KML.'),
-      '#default_value' => isset(
-      $settings['openlayers_layer_type_pointtrack']['extractAttributes']) ?
-        $settings['openlayers_layer_type_pointtrack']['extractAttributes'] : TRUE,
-    );
-    $element['openlayers_layer_type_pointtrack']['maxDepth'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Max depth'),
-      '#description' => t('Max depth.'),
-      '#default_value' => isset(
-      $settings['openlayers_layer_type_pointtrack']['maxDepth']) ?
-        $settings['openlayers_layer_type_pointtrack']['maxDepth'] : 1,
-    );
-    $element['openlayers_layer_type_pointtrack']['projection'] = array(
       '#type' => 'hidden',
       '#value' => array('4326'),
     );
@@ -265,7 +226,7 @@ function geofile_field_formatter_view($entity_type, $entity, $field, $instance, 
 
 function _geofile_openlayers_formatter($map_name, $layer_type, $items, $options, $hybrid_mode) {
   $preset = openlayers_preset_load($map_name);
-  $map    = openlayers_build_map($preset->data);
+  $map = openlayers_build_map($preset->data);
   $layers = openlayers_layer_types();
   $hybrid = openlayers_layer_type_load('geofile_hybrid');
 
@@ -281,7 +242,8 @@ function _geofile_openlayers_formatter($map_name, $layer_type, $items, $options,
     if ($hybrid_mode == 'single') {
       $hybrid_name = 'geofile_hybrid';
       $map['layers'][$hybrid_name]['layers'][] = $layer_embbed;
-    } else {
+    }
+    else {
       $hybrid_name = 'geofile_hybrid_' . $key;
       $map['layers'][$hybrid_name] = $hybrid->data;
       $map['layers'][$hybrid_name]['title'] = $layer_embbed['title'];
@@ -337,11 +299,11 @@ function _geofile_openlayers_formatter($map_name, $layer_type, $items, $options,
 }
 
 function _geofile_create_embbed_layer($layer_class, $item, $options) {
-    $layer_embbed = openlayers_layer_type_load($layer_class);
-    $layer_embbed->data['url'] = file_create_url($item['uri']);
-    $layer_embbed->data['formatOptions'] = $options[$layer_class];
-    $layer_embbed->data['title'] = basename($item['uri']);
-    return $layer_embbed->data;
+  $layer_embbed = openlayers_layer_type_load($layer_class);
+  $layer_embbed->data['url'] = file_create_url($item['uri']);
+  $layer_embbed->data['formatOptions'] = $options[$layer_class];
+  $layer_embbed->data['title'] = basename($item['uri']);
+  return $layer_embbed->data;
 }
 
 function _geofile_get_layer_type_from_uri($item, $layer_type) {
@@ -350,11 +312,7 @@ function _geofile_get_layer_type_from_uri($item, $layer_type) {
 
   if ($layer_type == 'auto') {
     if (in_array($ext, array('kml', 'kmz'))) {
-      if (strpos('.track.', $file) === false) {
-        $layer_embbed_type = 'openlayers_layer_type_kml';
-      } else {
-        $layer_embbed_type = 'openlayers_layer_type_pointtrack';
-      }
+      $layer_embbed_type = 'openlayers_layer_type_kml';
     }
     if (in_array($ext, array('gpx'))) {
       $layer_embbed_type = 'openlayers_layer_type_gml';
