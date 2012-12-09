@@ -26,7 +26,7 @@ function drupal_json_encode_helper($var) {
       // special characters.
       $replace_pairs = array(
         // ", \ and U+0000 - U+001F must be escaped according to RFC 4627.
-        '\\' => '\u005C',
+        '\\' => '\u005c',
         '"' => '\u0022',
         "\x00" => '\u0000',
         "\x01" => '\u0001',
@@ -38,12 +38,12 @@ function drupal_json_encode_helper($var) {
         "\x07" => '\u0007',
         "\x08" => '\u0008',
         "\x09" => '\u0009',
-        "\x0a" => '\u000A',
-        "\x0b" => '\u000B',
-        "\x0c" => '\u000C',
-        "\x0d" => '\u000D',
-        "\x0e" => '\u000E',
-        "\x0f" => '\u000F',
+        "\x0a" => '\u000a',
+        "\x0b" => '\u000b',
+        "\x0c" => '\u000c',
+        "\x0d" => '\u000d',
+        "\x0e" => '\u000e',
+        "\x0f" => '\u000f',
         "\x10" => '\u0010',
         "\x11" => '\u0011',
         "\x12" => '\u0012',
@@ -54,20 +54,20 @@ function drupal_json_encode_helper($var) {
         "\x17" => '\u0017',
         "\x18" => '\u0018',
         "\x19" => '\u0019',
-        "\x1a" => '\u001A',
-        "\x1b" => '\u001B',
-        "\x1c" => '\u001C',
-        "\x1d" => '\u001D',
-        "\x1e" => '\u001E',
-        "\x1f" => '\u001F',
+        "\x1a" => '\u001a',
+        "\x1b" => '\u001b',
+        "\x1c" => '\u001c',
+        "\x1d" => '\u001d',
+        "\x1e" => '\u001e',
+        "\x1f" => '\u001f',
         // Prevent browsers from interpreting these as as special.
         "'" => '\u0027',
-        '<' => '\u003C',
-        '>' => '\u003E',
+        '<' => '\u003c',
+        '>' => '\u003e',
         '&' => '\u0026',
         // Prevent browsers from interpreting the solidus as special and
         // non-compliant JSON parsers from interpreting // as a comment.
-        '/' => '\u002F',
+        '/' => '\u002f',
         // While these are allowed unescaped according to ECMA-262, section
         // 15.12.2, they cause problems in some JSON parsers.
         "\xe2\x80\xa8" => '\u2028', // U+2028, Line Separator.
