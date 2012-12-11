@@ -313,6 +313,85 @@ function ccm_rides_views_default_views() {
   $handler->display->display_options['filters']['field_endpoint_geolocation_wkt']['field'] = 'field_endpoint_geolocation_wkt';
   $handler->display->display_options['filters']['field_endpoint_geolocation_wkt']['operator'] = 'not empty';
   $handler->display->display_options['path'] = 'ride-destinations.geojson';
+
+  /* Display: Destinations */
+  $handler = $view->new_display('page', 'Destinations', 'page_2');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Ride Destinations';
+  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'leaflet';
+  $handler->display->display_options['style_options']['data_source'] = 'field_endpoint_geolocation';
+  $handler->display->display_options['style_options']['name_field'] = 'field_ride_date';
+  $handler->display->display_options['style_options']['description_field'] = 'field_endpoint_address';
+  $handler->display->display_options['style_options']['map'] = 'mapbox-streets';
+  $handler->display->display_options['style_options']['height'] = '600';
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
+  /* Field: Content: Ride Date */
+  $handler->display->display_options['fields']['field_ride_date']['id'] = 'field_ride_date';
+  $handler->display->display_options['fields']['field_ride_date']['table'] = 'field_data_field_ride_date';
+  $handler->display->display_options['fields']['field_ride_date']['field'] = 'field_ride_date';
+  $handler->display->display_options['fields']['field_ride_date']['label'] = 'Date';
+  $handler->display->display_options['fields']['field_ride_date']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['field_ride_date']['alter']['path'] = 'node/[nid]';
+  $handler->display->display_options['fields']['field_ride_date']['settings'] = array(
+    'format_type' => 'short',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  /* Field: Content: Trace Type */
+  $handler->display->display_options['fields']['field_trace_type']['id'] = 'field_trace_type';
+  $handler->display->display_options['fields']['field_trace_type']['table'] = 'field_data_field_trace_type';
+  $handler->display->display_options['fields']['field_trace_type']['field'] = 'field_trace_type';
+  /* Field: Content: Endpoint Address */
+  $handler->display->display_options['fields']['field_endpoint_address']['id'] = 'field_endpoint_address';
+  $handler->display->display_options['fields']['field_endpoint_address']['table'] = 'field_data_field_endpoint_address';
+  $handler->display->display_options['fields']['field_endpoint_address']['field'] = 'field_endpoint_address';
+  $handler->display->display_options['fields']['field_endpoint_address']['click_sort_column'] = 'country';
+  $handler->display->display_options['fields']['field_endpoint_address']['settings'] = array(
+    'use_widget_handlers' => 1,
+    'format_handlers' => array(
+      'address' => 'address',
+    ),
+  );
+  /* Field: Content: Attendees */
+  $handler->display->display_options['fields']['field_attendees']['id'] = 'field_attendees';
+  $handler->display->display_options['fields']['field_attendees']['table'] = 'field_data_field_attendees';
+  $handler->display->display_options['fields']['field_attendees']['field'] = 'field_attendees';
+  $handler->display->display_options['fields']['field_attendees']['settings'] = array(
+    'thousand_separator' => ' ',
+    'prefix_suffix' => 1,
+  );
+  /* Field: Content: Distance */
+  $handler->display->display_options['fields']['field_distance']['id'] = 'field_distance';
+  $handler->display->display_options['fields']['field_distance']['table'] = 'field_data_field_distance';
+  $handler->display->display_options['fields']['field_distance']['field'] = 'field_distance';
+  $handler->display->display_options['fields']['field_distance']['label'] = 'Distance (mi)';
+  $handler->display->display_options['fields']['field_distance']['settings'] = array(
+    'thousand_separator' => ' ',
+    'decimal_separator' => '.',
+    'scale' => '2',
+    'prefix_suffix' => 1,
+  );
+  /* Field: Content: Endpoint Geolocation */
+  $handler->display->display_options['fields']['field_endpoint_geolocation']['id'] = 'field_endpoint_geolocation';
+  $handler->display->display_options['fields']['field_endpoint_geolocation']['table'] = 'field_data_field_endpoint_geolocation';
+  $handler->display->display_options['fields']['field_endpoint_geolocation']['field'] = 'field_endpoint_geolocation';
+  $handler->display->display_options['fields']['field_endpoint_geolocation']['click_sort_column'] = 'wkt';
+  $handler->display->display_options['fields']['field_endpoint_geolocation']['settings'] = array(
+    'data' => 'full',
+  );
+  $handler->display->display_options['path'] = 'destinations';
   $export['rides'] = $view;
 
   return $export;
