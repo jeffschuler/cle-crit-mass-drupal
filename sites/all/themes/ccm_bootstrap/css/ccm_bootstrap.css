@@ -57,6 +57,9 @@ label, input, button, select, textarea {
 p {
   margin-bottom: 1.5em;
 }
+img {
+  max-width: none; /* reset bootstrap 100% setting for OpenLayers map tiles */
+}
 
 /*
  * Forms
