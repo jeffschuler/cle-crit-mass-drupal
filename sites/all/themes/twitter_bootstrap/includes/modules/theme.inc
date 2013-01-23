@@ -56,8 +56,8 @@ function twitter_bootstrap_item_list($variables) {
  * Returns HTML for status and/or error messages, grouped by type.
  *
  */
-function twitter_bootstrap_status_messages($vars) {
-  $display = $vars['display'];
+function twitter_bootstrap_status_messages($variables) {
+  $display = $variables['display'];
   $output = '';
 
   $status_heading = array(
@@ -93,9 +93,17 @@ function twitter_bootstrap_css_alter(&$css) {
   $excludes = _twitter_bootstrap_alter(twitter_bootstrap_theme_get_info('exclude'), 'css');
   $css = array_diff_key($css, $excludes);
 }
- 
+
+/**
+ * Implements hook_js_alter().
+ */
 function twitter_bootstrap_js_alter(&$js) {
   $excludes = _twitter_bootstrap_alter(twitter_bootstrap_theme_get_info('exclude'), 'js');
+  // If twitter_bootstrap_ui available, we should not add js from theme info file.
+  if (module_exists('twitter_bootstrap_ui')) {
+    libraries_load('twitter_bootstrap', 'minified');
+    $excludes[drupal_get_path('theme', 'twitter_bootstrap') . '/bootstrap/js/bootstrap.js'] = array();
+  }
   $js = array_diff_key($js, $excludes);
 }
 
@@ -104,9 +112,9 @@ function _twitter_bootstrap_alter($files, $type) {
   
   foreach($files as $key => $value) {
     if(isset($files[$key][$type])) {
-	  foreach($files[$key][$type] as $file => $name) {
-		  $output[$name] = FALSE;
-	  }
+    foreach($files[$key][$type] as $file => $name) {
+      $output[$name] = FALSE;
+    }
     }
   }
   return $output;
@@ -149,15 +157,15 @@ function twitter_bootstrap_twitter_bootstrap_links($variables) {
 
     $num_links = count($links);
     $i = 1;
-	
+  
     foreach ($links as $key => $link) {
       $children = array();
       if(isset($link['below']))
         $children = $link['below'];
       
-	  $attributes = array('class' => array($key));
-	  
-	  // Add first, last and active classes to the list of links to help out themers.
+    $attributes = array('class' => array($key));
+    
+    // Add first, last and active classes to the list of links to help out themers.
       if ($i == 1) {
         $attributes['class'][] = 'first';
       }
@@ -168,51 +176,54 @@ function twitter_bootstrap_twitter_bootstrap_links($variables) {
            && (empty($link['language']) || $link['language']->language == $language_url->language)) {
         $attributes['class'][] = 'active';
       }
-	  
-	  if(count($children) > 0) {
-		$attributes['class'][] = 'dropdown';
-		$link['attributes']['data-toggle'] = 'dropdown';
-		$link['attributes']['class'][] = 'dropdown-toggle';
+    
+    if(count($children) > 0) {
+    $attributes['class'][] = 'dropdown';
+    $link['attributes']['data-toggle'] = 'dropdown';
+    $link['attributes']['class'][] = 'dropdown-toggle';
       }
-	  
-	  if(!isset($link['attributes']))
-		$link['attributes'] = array();
-		
-	  $class = (count($children) > 0) ? 'dropdown' : NULL;
-	  $output .= '<li' . drupal_attributes(array('class' => array($class))) . '>';
-	  
-	  if (isset($link['href'])) {
-		if(count($children) > 0) { 
-		  $link['html'] = TRUE;
-		  $link['title'] .= '<b class="caret"></b>';
-		  $output .=  '<a' . drupal_attributes($link['attributes']) . ' href="#">'. $link['title'] .'</a>';
-		}else{
-		// Pass in $link as $options, they share the same keys.
-		 $output .= l($link['title'], $link['href'], $link);
-		}
-	  }
-	  elseif (!empty($link['title'])) {
-	   // Some links are actually not links, but we wrap these in <span> for adding title and class attributes.
-	   if (empty($link['html'])) {
-		 $link['title'] = check_plain($link['title']);
-	   }
-	   $span_attributes = '';
-	   if (isset($link['attributes'])) {
-		 $span_attributes = drupal_attributes($link['attributes']);
-	   }
-	   $output .= '<span' . $span_attributes . '>' . $link['title'] . '</span>';
-	  }
-	  
-	  $i++;
-	  
-	  if(count($children) > 0) {
-		$attributes = array();
+    
+    if(!isset($link['attributes']))
+    $link['attributes'] = array();
+
+    $link['attributes'] = array_merge($link['attributes'], $attributes);
+    
+    if(count($children) > 0) 
+      $link['attributes']['class'][] = 'dropdown'; 
+    $output .= '<li' . drupal_attributes($attributes) . '>';
+    
+    if (isset($link['href'])) {
+    if(count($children) > 0) { 
+      $link['html'] = TRUE;
+      $link['title'] .= ' <b class="caret"></b>';
+      $output .=  '<a' . drupal_attributes($link['attributes']) . ' href="#">'. $link['title'] .'</a>';
+    }else{
+    // Pass in $link as $options, they share the same keys.
+     $output .= l($link['title'], $link['href'], $link);
+    }
+    }
+    elseif (!empty($link['title'])) {
+     // Some links are actually not links, but we wrap these in <span> for adding title and class attributes.
+     if (empty($link['html'])) {
+     $link['title'] = check_plain($link['title']);
+     }
+     $span_attributes = '';
+     if (isset($link['attributes'])) {
+     $span_attributes = drupal_attributes($link['attributes']);
+     }
+     $output .= '<span' . $span_attributes . '>' . $link['title'] . '</span>';
+    }
+    
+    $i++;
+    
+    if(count($children) > 0) {
+    $attributes = array();
         $attributes['class'] = array('dropdown-menu');
-		
-		$output .= theme('twitter_bootstrap_links', array('links' => $children, 'attributes' => $attributes));
-	  }
-	  
-	  $output .= "</li>\n";	
+    
+    $output .= theme('twitter_bootstrap_links', array('links' => $children, 'attributes' => $attributes));
+    }
+    
+    $output .= "</li>\n"; 
     }
 
     $output .= '</ul>';
