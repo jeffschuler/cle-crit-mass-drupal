@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the CCM - Maps feature.
+ */
+
+include_once 'ccm_maps.features.inc';
