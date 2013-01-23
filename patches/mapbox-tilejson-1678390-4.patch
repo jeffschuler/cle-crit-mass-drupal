@@ -1,0 +1,14 @@
+diff --git a/includes/layer_types/mapbox.inc b/includes/layer_types/mapbox.inc
+index 21b34b9..17e0deb 100644
+--- a/includes/layer_types/mapbox.inc
++++ b/includes/layer_types/mapbox.inc
+@@ -9,6 +9,9 @@ class openlayers_layer_type_mapbox extends openlayers_layer_type {
+    * Provide initial values for options.
+    */
+   function options_init() {
++    if (isset($this->data) && empty($this->data['tilejson']) && !empty($this->data['url_jsonp'])) {
++      $this->to_record();
++    }
+     return array(
+       'url_jsonp' => '',
+       'tilejson' => '',
