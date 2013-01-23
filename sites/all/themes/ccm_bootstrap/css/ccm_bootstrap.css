@@ -37,11 +37,25 @@ label, input, button, select, textarea {
   margin-top: 5px;
   letter-spacing: 1px;
 }
-#main-menu {
+#navbar .menu.nav {
   margin-top: 5px;
   font-size: 10pt;
 }
-
+.navbar .nav > li > a,
+.navbar .brand {
+  color: #999999;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+}
+.navbar .nav > li > a:focus,
+.navbar .nav > li > a:hover {
+  color: #ffffff;
+}
+.navbar .nav .active-trail > a,
+.navbar .nav .active-trail > a:hover {
+  color: #ffffff;
+  text-decoration: none;
+  background-color: #222222;
+}
 
 /*
  * Content Section

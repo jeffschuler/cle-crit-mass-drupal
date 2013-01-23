@@ -2,7 +2,7 @@ name = CCM Bootstrap
 description = 'Cleveland Critical Mass -- Twitter bootstrap subtheme'
 version = 0.9
 core = 7.x
-base theme = twitter_bootstrap
+base theme = bootstrap
 
 regions[header]         = 'Top Bar'
 regions[highlighted]    = 'Highlighted'
