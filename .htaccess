@@ -83,8 +83,11 @@ DirectoryIndex index.php index.html index.htm
 
   RewriteCond %{HTTP_HOST} ^clecritmass\.websubstrate\.com$ [NC,OR]
   RewriteCond %{HTTP_HOST} ^clecriticalmass\.websubstrate\.com$ [NC,OR]
-  RewriteCond %{HTTP_HOST} ^clevelandcriticalmass\.websubstrate\.com$ [NC]
-  RewriteRule ^ http://ccm.websubstrate.com%{REQUEST_URI} [L,R=301]
+  RewriteCond %{HTTP_HOST} ^clevelandcriticalmass\.websubstrate\.com$ [NC,OR]
+  RewriteCond %{HTTP_HOST} ^ccm\.websubstrate\.com$ [NC,OR]
+  RewriteCond %{HTTP_HOST} ^criticalmaps\.com$ [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www\.criticalmaps\.com$ [NC]
+  RewriteRule ^ http://cleveland.criticalmaps.com%{REQUEST_URI} [L,R=301]
   
   # To redirect all users to access the site WITHOUT the 'www.' prefix,
   # (http://www.example.com/... will be redirected to http://example.com/...)
