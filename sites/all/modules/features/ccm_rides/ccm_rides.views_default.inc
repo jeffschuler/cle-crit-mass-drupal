@@ -133,11 +133,11 @@ function ccm_rides_views_default_views() {
     'thousand_separator' => ' ',
     'prefix_suffix' => 1,
   );
-  /* Field: Content: Distance */
+  /* Field: Content: Distance (mi) */
   $handler->display->display_options['fields']['field_distance']['id'] = 'field_distance';
   $handler->display->display_options['fields']['field_distance']['table'] = 'field_data_field_distance';
   $handler->display->display_options['fields']['field_distance']['field'] = 'field_distance';
-  $handler->display->display_options['fields']['field_distance']['label'] = 'Distance (mi)';
+  $handler->display->display_options['fields']['field_distance']['label'] = 'Distance';
   $handler->display->display_options['fields']['field_distance']['settings'] = array(
     'thousand_separator' => ' ',
     'decimal_separator' => '.',
@@ -278,11 +278,10 @@ function ccm_rides_views_default_views() {
     'thousand_separator' => ' ',
     'prefix_suffix' => 1,
   );
-  /* Field: Content: Distance */
+  /* Field: Content: Distance (mi) */
   $handler->display->display_options['fields']['field_distance']['id'] = 'field_distance';
   $handler->display->display_options['fields']['field_distance']['table'] = 'field_data_field_distance';
   $handler->display->display_options['fields']['field_distance']['field'] = 'field_distance';
-  $handler->display->display_options['fields']['field_distance']['label'] = 'Distance (mi)';
   $handler->display->display_options['fields']['field_distance']['settings'] = array(
     'thousand_separator' => ' ',
     'decimal_separator' => '.',
@@ -380,11 +379,10 @@ function ccm_rides_views_default_views() {
     'thousand_separator' => ' ',
     'prefix_suffix' => 1,
   );
-  /* Field: Content: Distance */
+  /* Field: Content: Distance (mi) */
   $handler->display->display_options['fields']['field_distance']['id'] = 'field_distance';
   $handler->display->display_options['fields']['field_distance']['table'] = 'field_data_field_distance';
   $handler->display->display_options['fields']['field_distance']['field'] = 'field_distance';
-  $handler->display->display_options['fields']['field_distance']['label'] = 'Distance (mi)';
   $handler->display->display_options['fields']['field_distance']['settings'] = array(
     'thousand_separator' => ' ',
     'decimal_separator' => '.',

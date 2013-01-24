@@ -117,13 +117,13 @@ function ccm_rides_field_default_fields() {
       ),
       'entity_type' => 'node',
       'field_name' => 'field_distance',
-      'label' => 'Distance',
+      'label' => 'Distance (mi)',
       'required' => 0,
       'settings' => array(
         'max' => '',
         'min' => '0',
         'prefix' => '',
-        'suffix' => '',
+        'suffix' => ' mi',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -763,7 +763,7 @@ function ccm_rides_field_default_fields() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Attendees');
-  t('Distance');
+  t('Distance (mi)');
   t('Endpoint Address');
   t('Endpoint Geolocation');
   t('Notes');
