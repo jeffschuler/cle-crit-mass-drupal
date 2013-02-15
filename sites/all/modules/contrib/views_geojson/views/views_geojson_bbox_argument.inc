@@ -89,7 +89,11 @@ class views_geojson_bbox_argument extends views_handler_argument {
    */
   function query() {
     $this->ensure_my_table();
-    if (!empty($this->argument)) {
+    // TODO: this argument should be set in
+    // views_plugin_argument_default_bboxquery::get_argument
+    // unfortunately that seems broken.
+    // @see http://drupal.org/node/1884214
+    if (!empty($this->argument) && ($this->argument !== TRUE)) {
       $bbox = $this->_explode_bbox_coords($this->argument);
     } else {
       $bbox = $this->_get_bbox_coords();
@@ -150,8 +154,8 @@ class views_geojson_bbox_argument extends views_handler_argument {
     }
 
     // Add WHERE(s) to query.
-    $left = intval($bbox['left']);
-    $right = intval($bbox['right']);
+    $left = $bbox['left'];
+    $right = $bbox['right'];
     // OpenLayers' longitude bbox values can be >180 or <-180 when the map wraps around.
     // We need to turn these into BETWEENs with OR.
     if ($right - $left < 360) {
@@ -172,8 +176,8 @@ class views_geojson_bbox_argument extends views_handler_argument {
       }
     }
 
-    $bottom = intval($bbox['bottom']);
-    $top = intval($bbox['top']);
+    $bottom = $bbox['bottom'];
+    $top = $bbox['top'];
     $group = $this->query->set_where_group('AND');
     $this->query->add_where($group, "$lat_field_table.$lat_field_name", $bottom, '>=');
     $this->query->add_where($group, "$lat_field_table.$lat_field_name", $top, '<=');
