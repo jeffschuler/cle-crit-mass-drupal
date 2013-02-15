@@ -314,7 +314,7 @@ function ccm_rides_views_default_views() {
     'ride' => 'ride',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Filter criterion: Content: Endpoint Geolocation (field_endpoint_geolocation:wkt) */
+  /* Filter criterion: Broken/missing handler */
   $handler->display->display_options['filters']['field_endpoint_geolocation_wkt']['id'] = 'field_endpoint_geolocation_wkt';
   $handler->display->display_options['filters']['field_endpoint_geolocation_wkt']['table'] = 'field_data_field_endpoint_geolocation';
   $handler->display->display_options['filters']['field_endpoint_geolocation_wkt']['field'] = 'field_endpoint_geolocation_wkt';
@@ -421,7 +421,7 @@ function ccm_rides_views_default_views() {
     'ride' => 'ride',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Filter criterion: Content: Route (field_route:fid) */
+  /* Filter criterion: Content: Route GPX (field_route:fid) */
   $handler->display->display_options['filters']['field_route_fid']['id'] = 'field_route_fid';
   $handler->display->display_options['filters']['field_route_fid']['table'] = 'field_data_field_route';
   $handler->display->display_options['filters']['field_route_fid']['field'] = 'field_route_fid';

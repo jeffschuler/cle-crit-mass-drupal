@@ -60,6 +60,9 @@ return $datetime->format(\'Y-m-d\');
       'token' => array(
         'custom_settings' => FALSE,
       ),
+      'diff_standard' => array(
+        'custom_settings' => FALSE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(
@@ -67,7 +70,7 @@ return $datetime->format(\'Y-m-d\');
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '12',
+          'weight' => '13',
         ),
         'metatags' => array(
           'weight' => '11',
