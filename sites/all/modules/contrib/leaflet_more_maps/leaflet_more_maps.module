@@ -209,18 +209,18 @@ function leaflet_more_maps_leaflet_map_info() {
 
   // MapBox/OSM http://mapbox.com
   $mapbox_names = array(
-     'Streets', // MapBox classic, used by foursquare
-     'Chester',
-     'Graphite',
-     'Lacquer',
-     'Light',
-     'Nightvision',
-     'Osgoode',
-     'Simple',
-     'St-Clair',
-     'Union',
-     'Warden',
-     'Zenburn'
+    //'Streets', // as used by foursquare
+    //'Chester',
+    //'Graphite',
+    //'Lacquer',
+    //'Light',
+    //'Nightvision',
+    //'Osgoode',
+    //'Simple',
+    //'St-Clair',
+    //'Union',
+    //'Zenburn',
+    'Warden'
   );
   $attr_mapbox = 'Tiles by <a href="http://mapbox.com">MapBox</a>. Map data &copy; <a href="http://openstreetap.org">OpenStreetMap</a> and contributors';
   foreach ($mapbox_names as $mapbox_name) {
