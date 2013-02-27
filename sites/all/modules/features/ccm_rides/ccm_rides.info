@@ -13,7 +13,6 @@ dependencies[] = feeds
 dependencies[] = file
 dependencies[] = geocoder
 dependencies[] = geofield
-dependencies[] = geofile
 dependencies[] = leaflet
 dependencies[] = link
 dependencies[] = list

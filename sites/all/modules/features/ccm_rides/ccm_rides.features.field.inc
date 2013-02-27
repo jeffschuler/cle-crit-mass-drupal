@@ -628,31 +628,9 @@ function ccm_rides_field_default_fields() {
         ),
         'full' => array(
           'label' => 'above',
-          'module' => 'geofile',
-          'settings' => array(
-            'data' => 'full',
-            'hybrid_mode' => 'single',
-            'layer_type' => 'auto',
-            'map_preset' => 'geofile_formatter_map',
-            'openlayers_layer_type_gml' => array(
-              'extractAttributes' => 1,
-              'extractRoutes' => 1,
-              'extractTracks' => 1,
-              'extractWaypoints' => 1,
-              'projection' => array(
-                0 => '4326',
-              ),
-            ),
-            'openlayers_layer_type_kml' => array(
-              'extractAttributes' => 1,
-              'extractStyles' => 1,
-              'maxDepth' => '1',
-              'projection' => array(
-                0 => '4326',
-              ),
-            ),
-          ),
-          'type' => 'geofile_file',
+          'module' => 'file',
+          'settings' => array(),
+          'type' => 'file_default',
           'weight' => '8',
         ),
         'teaser' => array(
