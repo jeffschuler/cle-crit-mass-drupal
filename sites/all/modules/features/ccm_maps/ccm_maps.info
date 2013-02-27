@@ -2,6 +2,7 @@ name = CCM - Maps
 core = 7.x
 package = Features
 php = 5.2.4
+dependencies[] = ccm_custom
 dependencies[] = ctools
 dependencies[] = mapbox
 dependencies[] = openlayers
