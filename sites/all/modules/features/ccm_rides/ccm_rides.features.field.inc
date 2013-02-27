@@ -33,7 +33,7 @@ function ccm_rides_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'module' => 'number',
           'settings' => array(
             'decimal_separator' => '.',
@@ -109,7 +109,7 @@ function ccm_rides_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'module' => 'number',
           'settings' => array(
             'decimal_separator' => '.',
@@ -192,7 +192,7 @@ function ccm_rides_field_default_fields() {
             'use_widget_handlers' => 1,
           ),
           'type' => 'addressfield_default',
-          'weight' => '0',
+          'weight' => '1',
         ),
         'full' => array(
           'label' => 'above',
@@ -358,10 +358,9 @@ function ccm_rides_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'text',
           'settings' => array(),
-          'type' => 'text_default',
-          'weight' => '6',
+          'type' => 'hidden',
+          'weight' => '14',
         ),
         'full' => array(
           'label' => 'above',
@@ -433,7 +432,7 @@ function ccm_rides_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'date',
           'settings' => array(
             'format_type' => 'long',
@@ -443,7 +442,7 @@ function ccm_rides_field_default_fields() {
             'multiple_to' => '',
           ),
           'type' => 'date_default',
-          'weight' => '1',
+          'weight' => '0',
         ),
         'full' => array(
           'label' => 'above',
@@ -527,13 +526,13 @@ function ccm_rides_field_default_fields() {
       'bundle' => 'ride',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Link to post-ride summary.',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'link',
           'settings' => array(),
-          'type' => 'link_default',
+          'type' => 'link_label',
           'weight' => '4',
         ),
         'full' => array(
@@ -550,9 +549,10 @@ function ccm_rides_field_default_fields() {
           'weight' => 0,
         ),
       ),
+      'ds_extras_field_template' => '',
       'entity_type' => 'node',
       'field_name' => 'field_ride_recap_link',
-      'label' => 'Ride Recap Link',
+      'label' => 'Ride Recap',
       'required' => 0,
       'settings' => array(
         'attributes' => array(
@@ -620,10 +620,11 @@ function ccm_rides_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
+          'module' => 'file',
           'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '8',
+          'type' => 'file_default',
+          'weight' => '6',
         ),
         'full' => array(
           'label' => 'above',
@@ -886,7 +887,7 @@ function ccm_rides_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'module' => 'file',
           'settings' => array(),
           'type' => 'file_default',
@@ -1092,9 +1093,10 @@ function ccm_rides_field_default_fields() {
   t('Distance (mi)');
   t('Endpoint Address');
   t('Endpoint Geolocation');
+  t('Link to post-ride summary.');
   t('Notes');
   t('Ride Date');
-  t('Ride Recap Link');
+  t('Ride Recap');
   t('Route GPX');
   t('Route GeoJSON');
   t('Route Geofield');

@@ -24,22 +24,17 @@ function ccm_rides_ds_field_settings_info() {
         ),
       ),
     ),
-    'field_ride_recap_link' => array(
+    'field_route' => array(
       'formatter_settings' => array(
         'ft' => array(
-          'lb' => 'Ride Recap',
+          'lb' => 'Download GPX',
         ),
-      ),
-    ),
-    'field_route_geofield' => array(
-      'formatter_settings' => array(
-        'ft' => array(),
       ),
     ),
     'field_route_geojson' => array(
       'formatter_settings' => array(
         'ft' => array(
-          'lb' => 'GeoJSON',
+          'lb' => 'Download GeoJSON',
         ),
       ),
     ),
@@ -65,26 +60,26 @@ function ccm_rides_ds_layout_settings_info() {
   $ds_layout->settings = array(
     'regions' => array(
       'left' => array(
-        0 => 'field_endpoint_address',
-        1 => 'field_ride_date',
+        0 => 'field_ride_date',
+        1 => 'field_endpoint_address',
         2 => 'field_distance',
         3 => 'field_attendees',
         4 => 'field_ride_recap_link',
         5 => 'field_route_geojson',
-        6 => 'field_notes',
+        6 => 'field_route',
       ),
       'right' => array(
         7 => 'field_route_geofield',
       ),
     ),
     'fields' => array(
-      'field_endpoint_address' => 'left',
       'field_ride_date' => 'left',
+      'field_endpoint_address' => 'left',
       'field_distance' => 'left',
       'field_attendees' => 'left',
       'field_ride_recap_link' => 'left',
       'field_route_geojson' => 'left',
-      'field_notes' => 'left',
+      'field_route' => 'left',
       'field_route_geofield' => 'right',
     ),
     'classes' => array(),
