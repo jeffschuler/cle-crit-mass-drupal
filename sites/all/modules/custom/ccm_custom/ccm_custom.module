@@ -12,3 +12,41 @@ function ccm_custom_preprocess_page(&$variables) {
   drupal_add_js(drupal_get_path('module', 'ccm_custom') . '/ccm_custom.js');
   $variables['scripts'] = drupal_get_js();
 }
+
+/*
+ * Implements hook_leaflet_map_info().
+ * Define custom Leaflet base layer for CleCritMass-base MapBox map.
+ */
+function ccm_custom_leaflet_map_info() {
+  $settings = array(
+    'attributionControl' => TRUE,
+    'closePopupOnClick'  => TRUE,
+    'doubleClickZoom'    => TRUE,
+    'dragging'           => TRUE,
+    'fadeAnimation'      => TRUE,
+    'layerControl'       => FALSE,
+    'maxZoom'            => 17,
+    'minZoom'            => 10,
+    'scrollWheelZoom'    => TRUE,
+    'touchZoom'          => TRUE,
+    'trackResize'        => TRUE,
+    'zoom'               => 12,
+    'zoomAnimation'      => TRUE,
+    'zoomControl'        => TRUE,
+  );
+
+  $map_info = array();
+  $map_id = 'websubstrate.CleCritMass-base';
+  $map_info["CleCritMass-base"] = array(
+    'label' => 'CleCritMass-base',
+    'description' => 'Cleveland Critical Mass - Base',
+    'settings' => $settings,
+    'layers' => array(
+      'earth' => array(
+        'urlTemplate' => "http://{s}.tiles.mapbox.com/v3/$map_id/{z}/{x}/{y}.png",
+        'options' => array('attribution' => '<a href="http://mapbox.com/">MapBox</a> — <a href="http://www.openstreetmap.org/">OpenStreetMap</a>')
+      )
+    )
+  );
+  return $map_info;
+}
