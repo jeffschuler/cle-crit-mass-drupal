@@ -42,7 +42,19 @@ function ccm_rides_field_default_fields() {
             'thousand_separator' => ' ',
           ),
           'type' => 'number_integer',
-          'weight' => '6',
+          'weight' => '3',
+        ),
+        'full' => array(
+          'label' => 'above',
+          'module' => 'number',
+          'settings' => array(
+            'decimal_separator' => '.',
+            'prefix_suffix' => TRUE,
+            'scale' => 0,
+            'thousand_separator' => ' ',
+          ),
+          'type' => 'number_integer',
+          'weight' => '3',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -106,7 +118,19 @@ function ccm_rides_field_default_fields() {
             'thousand_separator' => ' ',
           ),
           'type' => 'number_decimal',
-          'weight' => '8',
+          'weight' => '2',
+        ),
+        'full' => array(
+          'label' => 'above',
+          'module' => 'number',
+          'settings' => array(
+            'decimal_separator' => '.',
+            'prefix_suffix' => TRUE,
+            'scale' => 2,
+            'thousand_separator' => ' ',
+          ),
+          'type' => 'number_decimal',
+          'weight' => '2',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -159,6 +183,18 @@ function ccm_rides_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'above',
+          'module' => 'addressfield',
+          'settings' => array(
+            'format_handlers' => array(
+              'address' => 'address',
+            ),
+            'use_widget_handlers' => 1,
+          ),
+          'type' => 'addressfield_default',
+          'weight' => '0',
+        ),
+        'full' => array(
           'label' => 'above',
           'module' => 'addressfield',
           'settings' => array(
@@ -234,7 +270,13 @@ function ccm_rides_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '11',
+          'weight' => '17',
+        ),
+        'full' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '17',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -319,6 +361,13 @@ function ccm_rides_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
+          'weight' => '6',
+        ),
+        'full' => array(
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
           'weight' => '7',
         ),
         'teaser' => array(
@@ -384,6 +433,19 @@ function ccm_rides_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'above',
+          'module' => 'date',
+          'settings' => array(
+            'format_type' => 'long',
+            'fromto' => 'both',
+            'multiple_from' => '',
+            'multiple_number' => '',
+            'multiple_to' => '',
+          ),
+          'type' => 'date_default',
+          'weight' => '1',
+        ),
+        'full' => array(
           'label' => 'above',
           'module' => 'date',
           'settings' => array(
@@ -472,6 +534,13 @@ function ccm_rides_field_default_fields() {
           'module' => 'link',
           'settings' => array(),
           'type' => 'link_default',
+          'weight' => '4',
+        ),
+        'full' => array(
+          'label' => 'above',
+          'module' => 'link',
+          'settings' => array(),
+          'type' => 'link_default',
           'weight' => '5',
         ),
         'teaser' => array(
@@ -552,6 +621,12 @@ function ccm_rides_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '8',
+        ),
+        'full' => array(
+          'label' => 'above',
           'module' => 'geofile',
           'settings' => array(
             'data' => 'full',
@@ -577,7 +652,7 @@ function ccm_rides_field_default_fields() {
             ),
           ),
           'type' => 'geofile_file',
-          'weight' => '2',
+          'weight' => '8',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -667,10 +742,66 @@ function ccm_rides_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'hidden',
+          'module' => 'leaflet',
+          'settings' => array(
+            'height' => '400',
+            'icon' => array(
+              'iconAnchor' => array(
+                'x' => '',
+                'y' => '',
+              ),
+              'iconSize' => array(
+                'x' => '',
+                'y' => '',
+              ),
+              'iconUrl' => '',
+              'popupAnchor' => array(
+                'x' => '',
+                'y' => '',
+              ),
+              'shadowAnchor' => array(
+                'x' => '',
+                'y' => '',
+              ),
+              'shadowUrl' => '',
+            ),
+            'leaflet_map' => 'CleCritMass-base',
+            'popup' => 0,
+          ),
+          'type' => 'geofield_leaflet',
+          'weight' => '7',
+        ),
+        'full' => array(
           'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '10',
+          'module' => 'leaflet',
+          'settings' => array(
+            'height' => '400',
+            'icon' => array(
+              'iconAnchor' => array(
+                'x' => '',
+                'y' => '',
+              ),
+              'iconSize' => array(
+                'x' => '',
+                'y' => '',
+              ),
+              'iconUrl' => '',
+              'popupAnchor' => array(
+                'x' => '',
+                'y' => '',
+              ),
+              'shadowAnchor' => array(
+                'x' => '',
+                'y' => '',
+              ),
+              'shadowUrl' => '',
+            ),
+            'leaflet_map' => 'leaflet-mapbox',
+            'popup' => 0,
+          ),
+          'type' => 'geofield_leaflet',
+          'weight' => '9',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -679,6 +810,7 @@ function ccm_rides_field_default_fields() {
           'weight' => 0,
         ),
       ),
+      'ds_extras_field_template' => '',
       'entity_type' => 'node',
       'field_name' => 'field_route_geofield',
       'label' => 'Route Geofield',
@@ -695,7 +827,7 @@ function ccm_rides_field_default_fields() {
         'active' => 1,
         'module' => 'geocoder',
         'settings' => array(
-          'delta_handling' => 'default',
+          'delta_handling' => 'm_to_s',
           'geocoder_field' => 'field_route_geojson',
           'geocoder_handler' => 'json',
           'handler_settings' => array(
@@ -758,7 +890,14 @@ function ccm_rides_field_default_fields() {
           'module' => 'file',
           'settings' => array(),
           'type' => 'file_default',
-          'weight' => '9',
+          'weight' => '5',
+        ),
+        'full' => array(
+          'label' => 'above',
+          'module' => 'file',
+          'settings' => array(),
+          'type' => 'file_default',
+          'weight' => '6',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -827,6 +966,12 @@ function ccm_rides_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '15',
+        ),
+        'full' => array(
           'label' => 'above',
           'module' => 'link',
           'settings' => array(),
@@ -907,10 +1052,15 @@ function ccm_rides_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'list',
           'settings' => array(),
-          'type' => 'list_default',
-          'weight' => '3',
+          'type' => 'hidden',
+          'weight' => '16',
+        ),
+        'full' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '10',
         ),
         'teaser' => array(
           'label' => 'above',

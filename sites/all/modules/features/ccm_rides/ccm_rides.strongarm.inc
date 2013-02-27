@@ -63,6 +63,9 @@ return $datetime->format(\'Y-m-d\');
       'diff_standard' => array(
         'custom_settings' => FALSE,
       ),
+      'revision' => array(
+        'custom_settings' => FALSE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(
@@ -82,6 +85,10 @@ return $datetime->format(\'Y-m-d\');
       'display' => array(
         'flippy_pager' => array(
           'default' => array(
+            'weight' => '5',
+            'visible' => TRUE,
+          ),
+          'full' => array(
             'weight' => '5',
             'visible' => TRUE,
           ),
