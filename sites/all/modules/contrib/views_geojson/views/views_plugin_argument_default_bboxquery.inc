@@ -6,11 +6,14 @@
 
 /**
  * The BBOX query string argument default handler.
+ *
+ * @TODO: Write an options_validate() method.
  */
 class views_plugin_argument_default_bboxquery extends views_plugin_argument_default {
   function option_definition() {
     $options = parent::option_definition();
     $options['argument'] = array('default' => '');
+    $options['arg_id'] = array('default' => 'bbox');
 
     return $options;
   }
@@ -25,11 +28,11 @@ class views_plugin_argument_default_bboxquery extends views_plugin_argument_defa
     );
     $form['arg_id'] = array(
       '#type' => 'textfield',
-      '#title'  => t('Query argument ID'),
+      '#title' => t('Query argument ID'),
       '#size' => 60,
       '#maxlength' => 64,
-      '#default_value'  => $this->options['arg_id'] ? $this->options['arg_id'] : t('BBOX'),
-      '#description'  => t('The ID of the query argument.<br />For OpenLayers use <em>BBOX</em>, (as in "<em>?BBOX=left,bottom,right,top</em>".)'),
+      '#default_value' => $this->options['arg_id'] ? $this->options['arg_id'] : t('bbox'),
+      '#description' => t('The ID of the query argument.<br />For OpenLayers use <em>bbox</em>, (as in "<em>?bbox=left,bottom,right,top</em>".)'),
     );
   }
 
@@ -37,14 +40,23 @@ class views_plugin_argument_default_bboxquery extends views_plugin_argument_defa
    * Return the default argument.
    */
   function get_argument() {
-    if (isset($_GET[$this->options['arg_id']])) {
-      return $_GET[$this->options['arg_id']];
-    } else {
-      return TRUE; // Return all values if arg not present
+    $query = drupal_get_query_parameters();
+    if (isset($query[$this->options['arg_id']])) {
+      // Just set the argument here. We'll validate and sanitize the input in
+      // views_geojson_bbox_argument::query().
+      return $query[$this->options['arg_id']];
+    }
+    else {
+      if ($this->argument->options['empty_result']) {
+        // Return no values if arg not present and empty result option is set.
+        $this->view->built = TRUE;
+        $this->view->executed = TRUE;
+        return FALSE;
+      }
+      else {
+        // Return all values if arg not present.
+        return TRUE;
+      }
     }
   }
 }
-
-/**
- * @}
- */

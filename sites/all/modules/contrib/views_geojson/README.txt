@@ -37,7 +37,7 @@ http://drupal.org/documentation/install/modules-themes/modules-7 for help.
 USAGE
 -----
 
-1. Create a View with a Page display on content with geospatial data.
+1. Create a View with a Feed display on content with geospatial data.
 2. Add fields to output a Geofield, longitude & latitude or WKT.
 3. Optionally add fields for name and description.
 4. Set Format for the display to "GeoJSON Feed".
@@ -48,11 +48,6 @@ USAGE
   * Optionally set a JSONP prefix, (see http://en.wikipedia.org/wiki/JSONP).
   * Set the Content-type header to be sent. The default is "application/json",
     the standard MIME type for JSON, per http://www.ietf.org/rfc/rfc4627.txt.
-  * Optionally enable "Views API mode". By default the plugins stop Drupal from
-    doing any additional processing when a view is rendered, allowing the
-    content to be output without normal page markup. If you are calling a view
-    programatically, enable "Views API mode" to avoid early termination of
-    Drupal execution.
 6. If using with the OpenLayers module, your new GeoJSON layer will be available
   as an Overlay layer on the "Layers & Styles" tab when editing your map.
 
@@ -63,7 +58,7 @@ points within that box.
 
 It has been tested with OpenLayers' Bounding Box Strategy but should work
 with any mapping tool that requests bounding box coordinates as
-"?BBOX=left,bottom,right,top" in the query string. Argument ID "BBOX" is
+"?bbox=left,bottom,right,top" in the query string. Argument ID "bbox" is
 default for OpenLayers but can be changed.
 
 OpenLayers 7.x-2.x-dev is currently required for OpenLayers BBOX integration.
@@ -80,7 +75,7 @@ the GeoJSON layer type".
 4. In the Contextual Filter settings, under "When the filter value is NOT in
    the URL as a normal Drupal argument", choose: "Provide default value".
 5. In the "Type" dropdown, choose: "Bounding box from query string".
-6. For OpenLayers, leave "Query argument ID" as "BBOX" and click Apply.
+6. For OpenLayers, leave "Query argument ID" as "bbox" and click Apply.
 
 
 TO DO
