@@ -105,10 +105,12 @@ class geofield_handler_filter extends views_handler_filter_numeric {
         'origin' => array(),
       ),
     );
-    $proximityHandlers = geofield_proximity_views_handlers();
+    $proximityHandlers = module_invoke_all('proximity_views_handlers');
     foreach ($proximityHandlers as $key => $handler) {
-      $proximityPlugin = new $handler['class']();
-      $proximityPlugin->option_definition($options, $this);
+      if (class_exists($handler['class'])) {
+        $proximityPlugin = new $handler['class']();
+        $proximityPlugin->option_definition($options, $this);
+      }
     }
     return $options;
   }
@@ -134,14 +136,15 @@ class geofield_handler_filter extends views_handler_filter_numeric {
       '#submit' => array('geofield_views_ui_change_proximity_widget'),
     );
 
-    $proximityHandlers = geofield_proximity_views_handlers();
+    $proximityHandlers = module_invoke_all('proximity_views_handlers');
     foreach ($proximityHandlers as $key => $handler) {
       // Manually skip 'Exposed Filter', since it wouldn't make any sense in this context.
       if ($key != 'exposed_geofield_filter') {
         $form['source']['#options'][$key] = $handler['name'];
-
-        $proximityPlugin = new $handler['class']();
-        $proximityPlugin->options_form($form, $form_state, $this);
+        if (class_exists($handler['class'])) {
+          $proximityPlugin = new $handler['class']();
+          $proximityPlugin->options_form($form, $form_state, $this);
+        }
       }
     }
 
@@ -213,6 +216,11 @@ class geofield_handler_filter extends views_handler_filter_numeric {
    *   - @TODO: This could be more polished.
    */
   function accept_exposed_input($input) {
+
+    if (empty($this->options['expose']['identifier'])) {
+      return TRUE;
+    }
+
     if (!(isset($this->options['expose']) && isset($this->options['expose']['identifier']))) {
       return FALSE;
     }

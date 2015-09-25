@@ -25,10 +25,11 @@ function geofield_field_views_data($field) {
   foreach ($data as $table_name => $table_data) {
     if (isset($table_data[$field_name])) {
       $group_name = $table_data[$field_name]['group'];
+      $title = $table_data[$field_name]['title'] . " ($field_name) - proximity";
       $data[$table_name]['field_geofield_distance'] = array(
         'group' => $group_name,
-        'title'       => $table_data[$field_name]['title'] . ' - proximity',
-        'title short' => $table_data[$field_name]['title'] . ' - proximity',
+        'title' => $title,
+        'title short' => $title,
         'help' => $table_data[$field_name]['help'],
         'sort' => array(
           'field' => 'field_geofield_distance',
@@ -53,6 +54,10 @@ function geofield_field_views_data($field) {
           'field_name' => $field['field_name'],
           'real_field' => $table_name,
         ),
+        'argument' => array(
+          'handler' => 'geofield_handler_argument_proximity',
+          'field_name' => $field['field_name'],
+        ),
       );
     }
   }
@@ -60,6 +65,8 @@ function geofield_field_views_data($field) {
 }
 
 /**
+ * Implements hook proximity_views_handlers().
+ *
  * Returns metainfo about each of the geofield proximity views classes.
  */
 
@@ -68,22 +75,38 @@ function geofield_proximity_views_handlers() {
     'manual' => array(
       'name' => t('Manually Enter Point'),
       'class' => 'geofieldProximityManual',
+      'module' => 'geofield',
+      'path' => 'views/proximity_plugins',
     ),
     'entity_from_url' => array(
       'name' => t('Entity From URL'),
       'class' => 'geofieldProximityEntityURL',
+      'module' => 'geofield',
+      'path' => 'views/proximity_plugins',
     ),
     'current_user' => array(
       'name' => t('Current User'),
       'class' => 'geofieldProximityCurrentUser',
+      'module' => 'geofield',
+      'path' => 'views/proximity_plugins',
     ),
     'other_geofield' => array(
       'name' => t('Other Geofield'),
       'class' => 'geofieldProximityOtherGeofield',
+      'module' => 'geofield',
+      'path' => 'views/proximity_plugins',
     ),
     'exposed_geofield_filter' => array(
       'name' => t('Exposed Geofield Proximity Filter'),
       'class' => 'geofieldProximityExposedFilter',
+      'module' => 'geofield',
+      'path' => 'views/proximity_plugins',
+    ),
+    'contextual_geofield_filter' => array(
+      'name' => t('Contextual Geofield Proximity Filter'),
+      'class' => 'geofieldProximityContextualFilter',
+      'module' => 'geofield',
+      'path' => 'views/proximity_plugins',
     ),
   );
 
@@ -91,6 +114,8 @@ function geofield_proximity_views_handlers() {
     $handlers['geocoder'] = array(
       'name' => t('Geocoded Location'),
       'class' => 'geofieldProximityGeocoder',
+      'module' => 'geofield',
+      'path' => 'views/proximity_plugins',
     );
   }
 
@@ -106,9 +131,9 @@ function geofield_proximity_views_handlers() {
  */
 
 function geofield_proximity_load_plugin($plugin) {
-  $handlers = geofield_proximity_views_handlers();
-  module_load_include('inc', 'geofield', 'views/proximity_plugins/geofieldProximityManual');
-  module_load_include('inc', 'geofield', 'views/proximity_plugins/' . $handlers[$plugin]['class']);
+  $handlers = module_invoke_all('proximity_views_handlers');
+  //module_load_include('inc', 'geofield', 'views/proximity_plugins/geofieldProximityManual');
+  module_load_include('inc', $handlers[$plugin]['module'], $handlers[$plugin]['path'] . '/' . $handlers[$plugin]['class']);
   if (class_exists($handlers[$plugin]['class'])) {
     return new $handlers[$plugin]['class'];
   }
