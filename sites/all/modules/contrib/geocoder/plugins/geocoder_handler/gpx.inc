@@ -1,4 +1,5 @@
-<?php
+<?php // $Id: gpx.inc,v 1.1 2009/03/02 18:14:07 vauxia Exp $
+
 
 /**
  * @file
@@ -14,7 +15,7 @@
  */
 $plugin = array(
   'title' => t("GPX"),
-  'description' => t('Get the geometry of a GPX string or file'),
+  'description' => t('Get the geomtry of a GPX string or file'),
   'callback' => 'geocoder_gpx',
   'field_types' => array('text', 'text_long', 'file', 'computed'),
   'field_callback' => 'geocoder_gpx_field',

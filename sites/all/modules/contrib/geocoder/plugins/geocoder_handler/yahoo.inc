@@ -1,4 +1,5 @@
 <?php
+// $Id$
 
 /**
  * @file
@@ -29,7 +30,7 @@ function geocoder_yahoo($address, $options = array()) {
     $consumer_key = $geocoder_settings["geocoder_apikey_yahoo"];
   }
   else {
-    drupal_set_message(t('You must set up your Yahoo API key. Click !config', array('!config' => l(t('here'), $base_path .'admin/config/content/geocoder'))),'error');
+    drupal_set_message("You must set up your Yahoo API key. Click <a href='$base_path/admin/config/content/geocoder'>here</a>",'error');
     return;
   }
 
@@ -44,7 +45,7 @@ function geocoder_yahoo_field($field, $field_item) {
   if ($field['type'] == 'text' || $field['type'] == 'text_long' || $field['type'] == 'text_with_summary' || $field['type'] == 'computed') {
     return geocoder_yahoo($field_item['value']);
   }
-  if ($field['type'] == 'addressfield' && module_exists('addressfield') && !addressfield_field_is_empty($field_item, $field)) {
+  if ($field['type'] == 'addressfield') {
     $address = geocoder_widget_parse_addressfield($field_item);
     return geocoder_yahoo($address);
   }
@@ -59,16 +60,9 @@ function geocoder_yahoo_field($field, $field_item) {
 }
 
 function _geocoder_yahoo_geometry(&$data) {
-  if (!isset($data->ResultSet)) {
+  if (!isset($data->ResultSet->Results[0]->longitude, $data->ResultSet->Results[0])) {
     return NULL;
   }
-  // Yahoo Placefinder API v2.
-  elseif (isset($data->ResultSet->Result->longitude)) {
-    return new Point($data->ResultSet->Result->longitude, $data->ResultSet->Result->latitude);
-  }
-  // Yahoo Placefinder API v1.
-  elseif (isset($data->ResultSet->Results[0]->longitude)) {
-    return new Point($data->ResultSet->Results[0]->longitude, $data->ResultSet->Results[0]->latitude);
-  }
+  return new Point($data->ResultSet->Results[0]->longitude, $data->ResultSet->Results[0]->latitude);
 }
 
